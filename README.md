@@ -1,24 +1,47 @@
-# README
+# Volops (Volunteer Operations System)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+System to manage volunteers for an event. This system is a rails application within a docker container. It also uses react through the rails webpacker gem. 
 
-Things you may want to cover:
+### Prerequisites
 
-* Ruby version
+You must have docker and docker-compose installed
 
-* System dependencies
+```
+Give examples
+```
 
-* Configuration
+### Installing
 
-* Database creation
+```make build``` to build the project. ```make run-dev``` to start the project.
 
-* Database initialization
+### Running rails command
 
-* How to run the test suite
+to run rails command, you must add ```docker-compose run web``` in front of the command
+Example:
+```
+docker-compose run web bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Deployment
 
-* Deployment instructions
+Add additional notes about how to deploy this on a live system
 
-* ...
+## Built With
+
+* [Ruby on Rails V.5.2](https://rubyonrails.org/) - The web framework used
+* [Mariadb](https://mariadb.org/) - Open source MySql database
+* [React](https://reactjs.org/) - Javascript library for building user interfaces
+
+
+
+## Authors
+
+* **Bach Nguyen-Ngoc** - *Initial work* - [bnguyenngoc](https://github.com/bnguyenngoc)
+
+## License
+
+This project is licensed under the MIT License
+
+## Acknowledgments
+
+* [Simon Carpentier](https://github.com/scarpentier) for the original excel sheet that we used for countless years

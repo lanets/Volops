@@ -11,7 +11,6 @@ build:
 	docker-compose run web rails db:create db:migrate
 
 run-dev:
-	docker-compose run web ./bin/rails webpacker:install
 	docker-compose run web bundle install
 	docker-compose run web rails db:migrate
 	docker-compose -f docker-compose.yml up

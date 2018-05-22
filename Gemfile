@@ -39,6 +39,12 @@ gem 'bootsnap', '>= 1.1.0', require: false
 #Webpacker for react
 gem 'webpacker', '~> 3.5', '>= 3.5.3'
 
+#Devise gem for authentication
+gem 'devise', '~> 4.4.3'
+
+#Doorkeeper gem for oAuth
+gem 'doorkeeper', '~> 4.3.2'
+
 #Active support and its dependencies
 gem 'activesupport', '~> 5.2'
 gem 'concurrent-ruby', '~> 1.0', '>= 1.0.5'
