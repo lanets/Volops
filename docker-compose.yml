@@ -9,6 +9,8 @@ services:
       MYSQL_PASSWORD: mariadb
       MYSQL_DATABASE: backend_development
       MYSQL_ROOT_PASSWORD: mariadb
+    ports:
+      - "3306:3306"
 
   web:
     build: .

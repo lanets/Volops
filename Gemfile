@@ -36,6 +36,12 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# Bootstrap 4.0 for responsive web app
+gem 'bootstrap', '~> 4.1.1'
+
+#Autoprefixer to parse css and add prefixes to css rules
+gem 'autoprefixer-rails', '~> 8.5'
+
 #Webpacker for react
 gem 'webpacker', '~> 3.5', '>= 3.5.3'
 
@@ -44,6 +50,9 @@ gem 'devise', '~> 4.4.3'
 
 #Doorkeeper gem for oAuth
 gem 'doorkeeper', '~> 4.3.2'
+
+#Factory bot for using and defining factories
+gem 'factory_bot', '~> 4.8', '>= 4.8.2'
 
 #Active support and its dependencies
 gem 'activesupport', '~> 5.2'

@@ -11,11 +11,9 @@ build:
 	docker-compose run web rails db:create db:migrate
 
 run-dev:
-	docker-compose run web bundle install
-	docker-compose run web rails db:migrate
 	docker-compose -f docker-compose.yml up
 
-run-dev-new-gem:
+bundleinstall:
 	docker-compose run web bundle install
 	docker-compose -f docker-compose.yml up
 
@@ -23,7 +21,8 @@ run-dev-detached:
 	docker-compose -f docker/docker-compose.yml up -d
 
 makemigrations:
-	docker-compose -f docker/docker-compose.yml -f docker/docker-compose.makemigrations.yml up --abort-on-container-exit
+	docker-compose run web bundle install
+	docker-compose run web rails db:migrate
 
 docker-kill-all:
 	docker-compose -f docker/docker-compose.yml kill

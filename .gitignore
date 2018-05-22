@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+/vendor/bundle/
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -29,3 +30,6 @@
 /node_modules
 yarn-debug.log*
 .yarn-integrity
+
+# Mac finder artifacts
+.DS_Store
