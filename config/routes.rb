@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'pages#index'
+
+  get '/admin', to: 'admin#index', as: 'admin'
 end

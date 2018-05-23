@@ -52,6 +52,9 @@ gem 'webpacker', '~> 3.5', '>= 3.5.3'
 #Devise gem for authentication
 gem 'devise', '~> 4.4.3'
 
+#Cancancan gem for authorization
+gem 'cancancan', '~> 2.2.0'
+
 #Doorkeeper gem for oAuth
 gem 'doorkeeper', '~> 4.3.2'
 

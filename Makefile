@@ -33,10 +33,9 @@ docker-rm-all:
 clean:
 	[ -f ./Gemfile.lock ]
 	docker system prune -f
-	docker volume prune -f
 	docker-compose -f docker-compose.yml rm -sf
 	docker-compose -f docker-compose.yml build
 
 clean-db:
 	 @echo 'Removing database data volume'
-	 docker volume rm $(COMPOSE_PROJECT_NAME)_pgdata
+	 docker volume prune -f
