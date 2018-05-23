@@ -6,10 +6,6 @@ System to manage volunteers for an event. This system is a rails application wit
 
 You must have docker and docker-compose installed
 
-```
-Give examples
-```
-
 ### Installing
 
 ```make build``` to build the project. ```make run-dev``` to start the project.
@@ -24,7 +20,7 @@ docker-compose run web bundle install
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Section under construction
 
 ## Built With
 

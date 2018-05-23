@@ -33,3 +33,6 @@ yarn-debug.log*
 
 # Mac finder artifacts
 .DS_Store
+
+#Vs code
+./vscode/
