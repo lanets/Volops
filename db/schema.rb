@@ -13,9 +13,9 @@
 ActiveRecord::Schema.define(version: 2018_05_22_135356) do
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "number"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "number", null: false
     t.date "birthday"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -36,8 +36,10 @@ ActiveRecord::Schema.define(version: 2018_05_22_135356) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
 end

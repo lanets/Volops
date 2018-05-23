@@ -11,11 +11,11 @@ build:
 	docker-compose run web rails db:create db:migrate
 
 run-dev:
+	rm -f tmp/pids/server.pid > /dev/null 2>&1
 	docker-compose -f docker-compose.yml up
 
 bundleinstall:
 	docker-compose run web bundle install
-	docker-compose -f docker-compose.yml up
 
 run-dev-detached:
 	docker-compose -f docker/docker-compose.yml up -d
