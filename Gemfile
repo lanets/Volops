@@ -33,6 +33,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#rubocop for automatic code styling
+gem 'rubocop', '~> 0.57.0'
+
 #react-rails gem for rendering components in react
 gem 'react-rails', '~> 2.4', '>= 2.4.4'
 gem 'babel-source', '~> 5.8', '>= 5.8.35'

@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   root to: 'pages#index'
 
+  resources :events
+
   get '/admin', to: 'admin#index', as: 'admin'
 end

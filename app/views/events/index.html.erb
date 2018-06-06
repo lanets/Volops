@@ -1,7 +1,21 @@
 <% content_for :top_content do %>
-<div class="jumbotron col-md-12">
+  <div class="jumbotron col-md-12">
     <h1> Events page</h1>
     <p> When user is authenticated, this page becomes root </p>
     <p> Here, a user can choose which event he wants to view </p>
-</div>
+    <%= link_to 'Created new event', new_event_path, class: 'btn btn-primary btn-lg' %>
+  </div>
+  <div class="container">
+    <% @events.each do |e| %>
+      <div class="col-md-4 card">
+        <span class="card-body">
+          <h4><%= e.title %></h4>
+          <p>From <%= e.start_date %> to <%= e.end_date %></p>
+          <% if can? :edit, @events %>
+            <p><%= link_to 'Edit', edit_event_path(e) %></p>
+          <% end %>
+        </span>
+      </div>
+    <% end %>
+  </div>
 <% end %>

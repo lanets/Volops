@@ -30,14 +30,15 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
     user ||= User.new # guest user (not logged in)
-      if user.role? :user
-       can :read, :all
-      end
-      if user.role? :moderator
-         can :manage, :all
-      end
-      if user.role? :admin
-        can :manage, :all
-      end
+
+    if user.role? :user
+      can :read, :all
+    end
+    if user.role? :moderator
+      can :manage, :all
+    end
+    if user.role? :admin
+      can :manage, :all
+    end
   end
 end

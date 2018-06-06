@@ -1,0 +1,10 @@
+<h1>Event</h1>
+<div class="container">
+  <p>Title: <%= @event.title %></p>
+  <p>Start Date: <%= @event.start_date %></p>
+  <p> End Date: <%= @event.end_date %> </p>
+</div>
+
+<div class="btn btn-primary">
+  <%= link_to "Back to events listing", events_path %>
+</div>
