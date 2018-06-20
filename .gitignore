@@ -37,3 +37,6 @@ yarn-debug.log*
 #Vs code
 ./vscode/
 volops.code-workspace
+
+#Rubymine
+.idea/

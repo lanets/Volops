@@ -33,6 +33,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#Admin panel using railsAdmin
+gem 'rails_admin', '~> 1.3.0'
 #rubocop for automatic code styling
 gem 'rubocop', '~> 0.57.0'
 

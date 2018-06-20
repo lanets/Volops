@@ -5,9 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
-  ROLES = %w[guest user moderator admin]
+  ROLES = [:user, :admin]
 
-  def role?(base_role)
-    ROLES.index(base_role.to_s) || "guest" <= ROLES.index(role)
+  def is?(requested_role)
+    self.role == requested_role.to_s
   end
 end

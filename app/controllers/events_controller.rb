@@ -1,5 +1,6 @@
 # Event controllers
 class EventsController < ApplicationController
+  load_and_authorize_resource
 
   def index
     @events = Event.all
@@ -13,10 +14,10 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
-      flash[:notice] = 'Article was successfully created'
-      redirect_to event_path(@event)
+      flash[:notice] = 'Event was successfully created'
+      redirect_to events_path
     else
-      flash[:notice] = 'Error creating Article'
+      flash[:notice] = 'Error creating Event'
       render 'new'
     end
   end
@@ -32,7 +33,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
-      flash[:notice] = 'Article was successfully updated'
+      flash[:notice] = 'Event was successfully updated'
       redirect_to event_path(@event)
     else
       render 'edit'

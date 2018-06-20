@@ -15,9 +15,9 @@
   <div class="collapse navbar-collapse">
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
-        <% if can? :manage, @admin %>
+        <% if can? :access, :rails_admin %>
           <li class="nav-item">
-            <%= link_to "Admin", admin_path()%>
+            <%= link_to "Admin", rails_admin_path()%>
           </li>
         <% end %>
         <li class="nav-item dropdown">

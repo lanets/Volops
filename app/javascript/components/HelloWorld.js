@@ -4,7 +4,7 @@ class HelloWorld extends React.Component {
   render () {
     return (
       <React.Fragment>
-        Papa dit: {this.props.greeting}
+        React says: {this.props.greeting}
       </React.Fragment>
     );
   }

@@ -3,18 +3,29 @@
     <h1> Events page</h1>
     <p> When user is authenticated, this page becomes root </p>
     <p> Here, a user can choose which event he wants to view </p>
-    <%= link_to 'Created new event', new_event_path, class: 'btn btn-primary btn-lg' %>
+    <% if can? :create, Event %>
+      <%= link_to 'Created new event', new_event_path, class: 'btn btn-primary btn-lg' %>
+    <% end %>
   </div>
   <div class="container">
     <% @events.each do |e| %>
       <div class="col-md-4 card">
-        <span class="card-body">
-          <h4><%= e.title %></h4>
-          <p>From <%= e.start_date %> to <%= e.end_date %></p>
-          <% if can? :edit, @events %>
-            <p><%= link_to 'Edit', edit_event_path(e) %></p>
+        <div class="card-body">
+          <div class="col-md-12">
+            <h4><%= e.title %></h4>
+          </div>
+          <div class="col-md-12">
+            <p>From <%= e.start_date %> to <%= e.end_date %></p>
+          </div>
+          <div class="col-md-6">
+            <% if can? :edit, @events %>
+            <%= link_to 'Edit', edit_event_path(e), class: 'btn btn-link' %>
           <% end %>
-        </span>
+          </div>
+          <div class="col-md-6">
+            <%= link_to 'Go', e, class: 'btn btn-link' %>
+          </div>
+        </div>
       </div>
     <% end %>
   </div>
