@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application' %>
+
   </head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -47,13 +48,8 @@
     </div>
   <% end %>
 </div>
-
-<div class="container">
-    <h1><%= yield :header %></h1>
   <%= yield %>
-</div>
-
-<%= yield :top_content %>
+  <%= yield :top_content %>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
