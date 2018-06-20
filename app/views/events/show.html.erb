@@ -1,13 +1,24 @@
+<% content_for(:sidebar) do %>
+  <%= render :partial => "layouts/sidebar" %>
+<% end %>
+
+
 <% content_for :top_content do %>
-  <div class="jumbotron">
-    <h1> <i class="fa fa-camera-retro"></i> <%= @event.title %></h1>
-    <p>Start Date: <%= @event.start_date %></p>
-    <p> End Date: <%= @event.end_date %> </p>
-    <p>This page receives the user and the event to find the appropriate information</p>
-    <%= link_to "Back to events listing", events_path, class: "btn btn-primary" %>
-  </div>
   <div class="container">
-    <p>Different dashboard elements come here</p>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Dashboard - <%= @event.title %> (<%= @event.start_date.to_formatted_s(:short) %>
+          - <%= @event.end_date.to_formatted_s(:short) %>) </h2>
+      </div>
+
+    </br>
+
+      <div class="panel-body">
+        <p>This page receives the user and the event to find the appropriate information</p>
+        <%= link_to "Back to events listing", events_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
   </div>
 
 <% end %>
