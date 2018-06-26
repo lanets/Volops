@@ -1,32 +1,39 @@
 <% content_for :top_content do %>
-  <div class="jumbotron col-md-12">
-    <h1> Events page</h1>
-    <p> When user is authenticated, this page becomes root </p>
-    <p> Here, a user can choose which event he wants to view </p>
-    <% if can? :create, Event %>
-      <%= link_to 'Created new event', new_event_path, class: 'btn btn-primary btn-lg' %>
-    <% end %>
-  </div>
   <div class="container">
-    <% @events.each do |e| %>
-      <div class="col-md-4 card">
-        <div class="card-body">
-          <div class="col-md-12">
-            <h4><%= e.title %></h4>
-          </div>
-          <div class="col-md-12">
-            <p>From <%= e.start_date %> to <%= e.end_date %></p>
-          </div>
-          <div class="col-md-6">
-            <% if can? :edit, @events %>
-            <%= link_to 'Edit', edit_event_path(e), class: 'btn btn-link' %>
+    <div class="panel panel-default">
+      <div class="jumbotron col-md-12">
+        <h1> Events page</h1>
+        <p> When user is authenticated, this page becomes root </p>
+        <p> Here, a user can choose which event he wants to view </p>
+        <% if can? :create, Event %>
+          <%= link_to 'Created new event', new_event_path, class: 'btn btn-primary btn-lg' %>
+        <% end %>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <% @events.each do |e| %>
+            <div class="col-md-4 card">
+              <div class="card-body">
+                <div class="col-md-12">
+                  <h4><%= e.title %></h4>
+                </div>
+                <div class="col-md-12">
+                  <p>From <%= e.start_date %> to <%= e.end_date %></p>
+                </div>
+                <div class="col-md-6">
+                  <% if can? :edit, @events %>
+                    <%= link_to 'Edit', edit_event_path(e), class: 'btn btn-link' %>
+                  <% end %>
+                </div>
+                <div class="col-md-6">
+                  <%= link_to 'Go', e, class: 'btn btn-link' %>
+                </div>
+              </div>
+            </div>
           <% end %>
-          </div>
-          <div class="col-md-6">
-            <%= link_to 'Go', e, class: 'btn btn-link' %>
-          </div>
         </div>
       </div>
-    <% end %>
+    </div>
+
   </div>
 <% end %>

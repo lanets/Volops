@@ -1,0 +1,43 @@
+<% content_for(:sidebar) do %>
+  <%= render :partial => "layouts/sidebar" %>
+<% end %>
+
+<% content_for :top_content do %>
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Create new team</h2>
+      </div>
+
+      <br>
+      <div class="panel-body">
+        <% if @team.errors.any? %>
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Oh snap!</h4>
+            <p>the following errors prevented the event from being created</p>
+            <ul>
+              <% @team.errors.full_messages.each do |msg| %>
+                <li> <%= msg %> </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= form_for @team do |t| %>
+          <div class="form-group col-md-6">
+            <%= t.label :title %>
+            <%= t.text_field :title, class: 'form-control' %>
+          </div>
+          <div class="form-group col-md-6">
+            <%= t.label :description %>
+            <%= t.text_area :description, class: 'form-control' %>
+          </div>
+          <div class="col-md-6">
+            <%= t.submit "Create", class: 'btn btn-primary' %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

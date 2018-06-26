@@ -1,14 +1,17 @@
 <% if user_signed_in? %>
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <%= @event.title %>
+      </li>
       <li>
-        <a href="#"><i class="fa fa-tachometer"></i> Dashboard</a>
+        <%= link_to '<i class="fa fa-tachometer"></i> Dashboard'.html_safe, @event %>
       </li>
       <li>
         <a href="#"><i class="fa fa-clipboard"></i> Templates</a>
       </li>
       <li>
-        <a href="#"><i class="fa fa-users"></i> Teams</a>
+        <%= link_to '<i class="fa fa-users"></i> Teams'.html_safe, teams_path(@event) %>
       </li>
       <li>
         <a href="#"><i class="fa fa-wrench"></i> Schedule Tools</a>

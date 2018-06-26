@@ -5,6 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
+  has_many :events
+  has_many :teams, through: :events
+
   ROLES = [:user, :admin]
 
   def is?(requested_role)

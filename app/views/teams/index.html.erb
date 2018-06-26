@@ -1,0 +1,48 @@
+<% content_for(:sidebar) do %>
+  <%= render :partial => "layouts/sidebar" %>
+<% end %>
+
+<% content_for :top_content do %>
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <H2> <%= @event.title %> - Teams</H2>
+      </div>
+
+      <br>
+
+      <div class="panel-body">
+        <% if @teams.empty? %>
+          <div class="jumbotron">
+            <h3>No teams found for this event</h3>
+            <p>Start creating a team here here</p>
+            <%= link_to 'Created new team', new_team_path, class: 'btn btn-primary btn-lg' %>
+          </div>
+
+        <% else %>
+          <table class="table table-hover">
+            <% @teams.each do |t| %>
+              <thead>
+              <th>Title</th>
+              <th></th>
+              </thead>
+              <tbody>
+              <tr>
+                <td>t.title</td>
+                <td><a href="#">Go</a></td>
+              </tr>
+              </tbody>
+            <% end %>
+          </table>
+        <% end %>
+
+        <% %>
+
+      </div>
+
+
+    </div>
+  </div>
+<% end %>
+
+
