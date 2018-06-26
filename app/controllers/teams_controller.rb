@@ -3,7 +3,7 @@ class TeamsController < ApplicationController
 
   def index
     @event = Event.find(params[:id])
-    @teams = Team.joins(:events).where(events: { id: @event.id })
+    @teams = Team.where(id: @event.teams_id)
   end
 
   def new
@@ -16,8 +16,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     if @team.save
       flash[:notice] = 'Team was successfully created'
-      @event.team_id ||= []
-      @event.team_id << @team.id
+      @event.teams_id << @team.id
       redirect_to teams_path(@event)
     else
       flash[:notice] = 'Error creating Event'

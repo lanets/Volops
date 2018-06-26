@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_26_030306) do
+ActiveRecord::Schema.define(version: 2018_06_26_154527) do
 
   create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(version: 2018_06_26_030306) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "team_id"
+    t.bigint "teams_id"
     t.bigint "user_id"
-    t.index ["team_id"], name: "index_events_on_team_id"
+    t.index ["teams_id"], name: "index_events_on_teams_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 2018_06_26_030306) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "events", "teams"
+  add_foreign_key "events", "teams", column: "teams_id"
   add_foreign_key "events", "users"
   add_foreign_key "teams", "events"
 end
