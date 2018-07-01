@@ -69,6 +69,9 @@ gem 'doorkeeper', '~> 4.3.2'
 #Factory bot for using and defining factories
 gem 'factory_bot', '~> 4.8', '>= 4.8.2'
 
+#use latest sprocket gem due to security vulnerability
+gem 'sprockets', '~> 4.0.0.beta8'
+
 #Active support and its dependencies
 gem 'activesupport', '~> 5.2'
 gem 'concurrent-ruby', '~> 1.0', '>= 1.0.5'

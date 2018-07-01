@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get 'events/:id/teams' => 'teams#index', as: 'teams'
   get 'events/:id/teams/new' => 'teams#new', as: 'new_team'
+  get 'events/:id/teams/:secondId' => 'teams#show', as: 'show_team'
   post 'events/:id/teams' => 'teams#create'
 
 end

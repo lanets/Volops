@@ -1,0 +1,19 @@
+<% content_for(:sidebar) do %>
+  <%= render :partial => "layouts/sidebar" %>
+<% end %>
+
+<% content_for :top_content do %>
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2><%= @team.title %></h2>
+      </div>
+
+      <br>
+
+      <div class="panel-body">
+        <p><%= @team.description %></p>
+      </div>
+    </div>
+  </div>
+<% end %>

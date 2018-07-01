@@ -16,6 +16,7 @@ run-dev:
 
 bundleinstall:
 	docker-compose run web bundle install
+	docker-compose run web yarn install
 
 run-dev-detached:
 	docker-compose -f docker/docker-compose.yml up -d
@@ -31,7 +32,6 @@ docker-rm-all:
 	docker-compose -f docker/docker-compose.yml rm -v -f
 
 clean:
-	[ -f ./Gemfile.lock ]
 	docker system prune -f
 	docker-compose -f docker-compose.yml rm -sf
 	docker-compose -f docker-compose.yml build

@@ -24,6 +24,11 @@ class TeamsController < ApplicationController
     end
   end
 
+  def show
+    @event = Event.find(params[:id])
+    @team = Team.find(params[:secondId])
+  end
+
   private
 
   def team_params
