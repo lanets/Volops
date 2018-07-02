@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_26_154527) do
+ActiveRecord::Schema.define(version: 2018_07_01_235944) do
 
   create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
@@ -33,6 +33,21 @@ ActiveRecord::Schema.define(version: 2018_06_26_154527) do
     t.bigint "event_id"
     t.index ["event_id"], name: "index_teams_on_event_id"
     t.index ["user_id"], name: "index_teams_on_user_id"
+  end
+
+  create_table "teams_applications", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "first_choice_id"
+    t.bigint "second_choice_id"
+    t.bigint "third_choice_id"
+    t.bigint "user_id"
+    t.bigint "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_teams_applications_on_event_id"
+    t.index ["first_choice_id"], name: "index_teams_applications_on_first_choice_id"
+    t.index ["second_choice_id"], name: "index_teams_applications_on_second_choice_id"
+    t.index ["third_choice_id"], name: "index_teams_applications_on_third_choice_id"
+    t.index ["user_id"], name: "index_teams_applications_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -69,4 +84,7 @@ ActiveRecord::Schema.define(version: 2018_06_26_154527) do
   add_foreign_key "events", "teams", column: "teams_id"
   add_foreign_key "events", "users"
   add_foreign_key "teams", "events"
+  add_foreign_key "teams_applications", "teams", column: "first_choice_id"
+  add_foreign_key "teams_applications", "teams", column: "second_choice_id"
+  add_foreign_key "teams_applications", "teams", column: "third_choice_id"
 end

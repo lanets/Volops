@@ -1,0 +1,34 @@
+<% content_for(:sidebar) do %>
+  <%= render :partial => "layouts/sidebar" %>
+<% end %>
+
+<% content_for :top_content do %>
+  <div class="container">
+    <div class="panel panel-default">
+      <%= link_to 'Return to Team', event_teams_path(event_id: @event), class: ' col-md-2 float-right btn btn-primary' %>
+      <div class="panel-heading">
+        <h2>Application to Teams</h2>
+      </div>
+      <br>
+      <div class="panel-body">
+        <% form_for @team_application do |t| %>
+          <div class="form-group col-md-6">
+            <%= t.label :first_choice %>
+            <%= t.collection_select(:first_choice, @teams, :to_s, lambda {|i| i.to_s.humanize}) %>
+          </div>
+          <div class="form-group col-md-6">
+            <%= t.label :second_choice %>
+            <%= t.collection_select(:second_choice, @teams, :to_s, lambda {|i| i.to_s.humanize}) %>
+          </div>
+          <div class="form-group col-md-6">
+            <%= t.label :third_choice %>
+            <%= t.collection_select(:third_choice, @teams, :to_s, lambda {|i| i.to_s.humanize}) %>
+          </div>
+          <div class="col-md-6">
+            <%= t.submit "Apply", class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

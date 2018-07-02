@@ -9,10 +9,19 @@ Rails.application.routes.draw do
   root to: 'pages#index'
 
   resources :events
+  resources :events do
+    resources :teams
+    resources :teams_applications
+  end
 
-  get 'events/:id/teams' => 'teams#index', as: 'teams'
-  get 'events/:id/teams/new' => 'teams#new', as: 'new_team'
-  get 'events/:id/teams/:secondId' => 'teams#show', as: 'show_team'
-  post 'events/:id/teams' => 'teams#create'
+=begin
+    get 'events/:id/teams' => 'teams#index', as: 'teams'
+    get 'events/:id/teams/new' => 'teams#new', as: 'new_team'
+    get 'events/:id/teams/:secondId' => 'teams#show', as: 'show_team'
+    get 'events/:id/teams/apply', :to => 'teams_applications#new',
+        as: 'new_teams_applications'
+    post 'events/:id/teams' => 'teams#create'
+    post 'events/:id/teams/apply' => 'teams_applications#create'
+=end
 
 end

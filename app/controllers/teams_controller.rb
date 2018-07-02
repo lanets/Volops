@@ -2,17 +2,17 @@ class TeamsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event_id])
     @teams = Team.where(event_id: @event.id)
   end
 
   def new
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event_id])
     @team = Team.new
   end
 
   def create
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:event_id])
     @team = Team.new(team_params)
     if @team.save
       flash[:notice] = 'Team was successfully created'
@@ -25,8 +25,8 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
-    @team = Team.find(params[:secondId])
+    @event = Event.find(params[:event_id])
+    @team = Team.find(params[:id])
   end
 
   private

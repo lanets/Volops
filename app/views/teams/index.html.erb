@@ -17,24 +17,25 @@
             <h3>No teams found for this event</h3>
             <p>Start creating a team here here</p>
             <% if can? :create, Event %>
-            <%= link_to 'Created new team', new_team_path, class: 'btn btn-primary btn-lg' %>
+            <%= link_to 'Created new team', new_event_team_path, class: 'btn btn-primary btn-lg' %>
               <% end %>
           </div>
 
         <% else %>
           <% if can? :create, Event %>
-            <%= link_to 'Created new team', new_team_path, class: 'btn btn-primary btn-lg' %>
+            <%= link_to 'Created new team', new_event_team_path, class: 'btn btn-primary btn-lg' %>
           <% end %>
+            <%= link_to 'View Application', event_teams_applications_path(event_id: @event.id), class: 'btn btn-primary btn-lg' %>
           <table class="table table-hover">
             <thead>
-            <th>Title</th>
+            <th>Name of Team</th>
             <th></th>
             </thead>
             <tbody>
             <% @teams.each do |t| %>
               <tr>
                 <td><%= t.title %></td>
-                <td><%= link_to 'View', show_team_path(id: @event.id, secondId: t.id) %></td>
+                <td><%= link_to 'View', event_team_path(event_id: @event.id, id: t.id) %></td>
               </tr>
             <% end %>
             </tbody>

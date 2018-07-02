@@ -5,7 +5,7 @@
 <% content_for :top_content do %>
   <div class="container">
     <div class="panel panel-default">
-      <%= link_to 'Return to Team'.html_safe, teams_path(@event), class: ' col-md-2 float-right btn btn-primary' %>
+      <%= link_to 'Return to Team', teams_path(@event), class: ' col-md-2 float-right btn btn-primary' %>
       <div class="panel-heading">
         <h2><%= @team.title %></h2>
       </div>
