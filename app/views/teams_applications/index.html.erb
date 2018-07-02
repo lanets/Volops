@@ -10,8 +10,9 @@
       </div>
     </div>
     <div class="panel-body">
-      <% if @team_applications.empty? %>
+      <% if @teams_applications.empty? %>
         <p>No application has been submitted</p>
+        <%= link_to 'Apply here', new_event_teams_application_path(event_id: @event), class: 'btn btn-primary' %>
       <% end %>
     </div>
   </div>

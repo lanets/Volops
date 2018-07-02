@@ -3,13 +3,13 @@ class TeamsApplicationsController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
-    @team_applications = TeamsApplication.where(event_id: @event.id, user_id: current_user )
+    @teams_applications = TeamsApplication.where(event_id: @event.id, user_id: current_user )
   end
 
   def new
+    @teams_application = TeamsApplication.new
     @event = Event.find(params[:event_id])
     @teams = Team.where(event_id: @event.id)
-    @team_application = TeamsApplication.new
   end
 
   def create

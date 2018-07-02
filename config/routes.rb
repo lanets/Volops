@@ -14,14 +14,4 @@ Rails.application.routes.draw do
     resources :teams_applications
   end
 
-=begin
-    get 'events/:id/teams' => 'teams#index', as: 'teams'
-    get 'events/:id/teams/new' => 'teams#new', as: 'new_team'
-    get 'events/:id/teams/:secondId' => 'teams#show', as: 'show_team'
-    get 'events/:id/teams/apply', :to => 'teams_applications#new',
-        as: 'new_teams_applications'
-    post 'events/:id/teams' => 'teams#create'
-    post 'events/:id/teams/apply' => 'teams_applications#create'
-=end
-
 end
