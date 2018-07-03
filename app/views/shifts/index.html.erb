@@ -8,7 +8,38 @@
       <h2>Shifts of <%= @event.title %> </h2>
     </div>
     <div class="panel-body">
-      Shift test
+      <% if @shifts.empty? %>
+        <div class="jumbotron">
+          <h3> No shifts found </h3>
+          <% if can? :create, Shift %>
+            <p> Start creating shifts here </p>
+            <%= link_to 'Create new shifts here', new_event_shift_path(event_id: @event) %>
+          <% end %>
+        </div>
+
+      <% else %>
+        <% if can? :create, Shift %>
+          <%= link_to 'Create new shifts here', new_event_shift_path(event_id: @event) %>
+        <% end %>
+        <table class="table table-responsive">
+          <thead>
+          <tr>
+            <th>Start Time</th>
+            <th>End Time</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @shifts.each do |s| %>
+            <tr>
+              <td><%= s.start_date %></td>
+              <td> <%= s.end_date %> </td>
+            </tr>
+          <% end %>
+          </tbody>
+
+        </table>
+
+      <% end %>
     </div>
   </div>
 <% end %>

@@ -1,18 +1,9 @@
-<h1> Create a new event </h1>
+<div class="row">
+  <h1 class="col-md-6"> Create a new event </h1>
+</div>
 
-<% if @event.errors.any? %>
-  <div class="alert alert-danger" role="alert">
-    <h4 class="alert-heading">Oh snap!</h4>
-    <p>the following errors prevented the event from being created</p>
-    <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li> <%= msg %> </li>
-      <% end %>
-    </ul>
-  </div>
 
-<% end %>
-
+<%= render 'shared/errors', object: @event %>
 
 <%= form_for @event do |f| %>
   <div class="form-group col-md-6">
@@ -28,6 +19,7 @@
     <%= f.date_field :end_date, class: 'form-control'%>
   </div>
   <div class="col-md-6">
+    <%= link_to "Back to events listing", events_path, class: "btn btn-outline-danger" %>
     <%= f.submit "Create", class: 'btn btn-primary' %>
   </div>
 

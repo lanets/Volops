@@ -8,21 +8,21 @@ endif
 
 build:
 	docker-compose -f docker-compose.yml build
-	docker-compose run web rails db:create db:migrate
+	docker-compose run web rails db:create
+	docker-compose run web rails db:migrate
 
 run-dev:
 	rm -f tmp/pids/server.pid > /dev/null 2>&1
 	docker-compose -f docker-compose.yml up
 
-bundleinstall:
+bundle-install:
 	docker-compose run web bundle install
 	docker-compose run web yarn install
 
 run-dev-detached:
 	docker-compose -f docker/docker-compose.yml up -d
 
-makemigrations:
-	docker-compose run web bundle install
+make-migrations:
 	docker-compose run web rails db:migrate
 
 docker-kill-all:

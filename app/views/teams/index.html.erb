@@ -28,8 +28,10 @@
             <%= link_to 'View Application', event_teams_applications_path(event_id: @event.id), class: 'btn btn-primary btn-lg' %>
           <table class="table table-hover">
             <thead>
-            <th>Name of Team</th>
-            <th></th>
+            <tr>
+              <th>Name of Team</th>
+              <th></th>
+            </tr>
             </thead>
             <tbody>
             <% @teams.each do |t| %>

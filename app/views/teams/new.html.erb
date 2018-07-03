@@ -11,17 +11,8 @@
 
       <br>
       <div class="panel-body">
-        <% if @team.errors.any? %>
-          <div class="alert alert-danger" role="alert">
-            <h4 class="alert-heading">Oh snap!</h4>
-            <p>the following errors prevented the event from being created</p>
-            <ul>
-              <% @team.errors.full_messages.each do |msg| %>
-                <li> <%= msg %> </li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
+
+        <%= render 'shared/errors', object: @team %>
 
         <%= form_for @team do |t| %>
           <div class="form-group col-md-6">
