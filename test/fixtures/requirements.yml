@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shift: one
+  mandatory: 1
+  optional: 1
+
+two:
+  shift: two
+  mandatory: 1
+  optional: 1

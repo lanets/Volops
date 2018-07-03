@@ -1,0 +1,14 @@
+<% content_for(:sidebar) do %>
+  <%= render :partial => "layouts/sidebar" %>
+<% end %>
+
+<% content_for :top_content do %>
+  <div class="container">
+    <div class="panel panel-default">
+      <h2>Shifts of <%= @event.title %> </h2>
+    </div>
+    <div class="panel-body">
+      Shift test
+    </div>
+  </div>
+<% end %>

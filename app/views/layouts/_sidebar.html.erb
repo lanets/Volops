@@ -8,10 +8,13 @@
         <%= link_to '<i class="fa fa-tachometer"></i> Dashboard'.html_safe, @event %>
       </li>
       <li>
-        <a href="#"><i class="fa fa-clipboard"></i> Templates</a>
+        <%= link_to '<i class="fa fa-users"></i> Teams'.html_safe, event_teams_path(@event) %>
       </li>
       <li>
-        <%= link_to '<i class="fa fa-users"></i> Teams'.html_safe, event_teams_path(@event) %>
+        <%= link_to '<i class="fa fa-hourglass-start"></i> Shifts'.html_safe, event_shifts_path(@event) %>
+      </li>
+      <li>
+        <%= link_to '<i class="fa fa-clipboard"></i> Requirements'.html_safe, event_requirements_path(@event) %>
       </li>
       <li>
         <a href="#"><i class="fa fa-wrench"></i> Schedule Tools</a>

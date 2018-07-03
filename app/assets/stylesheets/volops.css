@@ -49,6 +49,10 @@ body {
     margin-right: -250px;
 }
 
+#sidebar-wrapper + #content-area {
+    margin-right: 250px; /* equal to the width of the sidebar */
+}
+
 
 /* Sidebar Styles */
 
@@ -59,6 +63,7 @@ body {
     margin: 0;
     padding: 0;
     list-style: none;
+    overflow: hidden;
 }
 
 .sidebar-nav li {
