@@ -14,7 +14,7 @@
 
         <%= render 'shared/errors', object: @team %>
 
-        <%= form_for @team do |t| %>
+        <%= form_for [@event, @team] do |t| %>
           <div class="form-group col-md-6">
             <%= t.label :title %>
             <%= t.text_field :title, class: 'form-control' %>
