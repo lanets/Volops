@@ -1,9 +1,5 @@
-<% content_for(:sidebar) do %>
-  <%= render :partial => "layouts/sidebar" %>
-<% end %>
-
 <% content_for :top_content do %>
-  <div class="container">
+  <div class="container" id="page-content-wrapper">
     <div class="panel panel-default">
       <div class="panel-heading">
         <H2> Teams of <%= @event.title %> </H2>

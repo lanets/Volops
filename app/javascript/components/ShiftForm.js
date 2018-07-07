@@ -1,12 +1,15 @@
 import React from "react"
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class ShiftForm extends React.Component {
     constructor(props){
         super();
         this.state = {
-            start_date: props.shift.start_date,
-            end_date: props.shift.end_date
+            start_date: moment(props.shift.start_date),
+            end_date: moment(props.shift.end_date)
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
@@ -27,8 +30,8 @@ class ShiftForm extends React.Component {
          <form className="form-group col-md-6">
              <div className="form-group col-md-6">
                  <label>Start Date</label>
-                 <input
-                     type="text"
+                 <DatePicker
+                     selected={this.state.start_date}
                      name="shift[start_date]"
                      value={this.state.start_date}
                      onChange={this.handleStartDateChange}
@@ -37,8 +40,8 @@ class ShiftForm extends React.Component {
              </div>
              <div className="form-group col-md-6">
                  <label>End Date</label>
-                 <input
-                     type="text"
+                 <DatePicker
+                     selected={this.state.end_date}
                      name="shift[end_date]"
                      value={this.state.end_date}
                      onChange={this.handleEndDateChange}

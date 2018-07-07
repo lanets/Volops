@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Volops</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Volops</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application' %>
 
-  </head>
+</head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand"> <%= link_to 'Volops', root_path, class: 'navbar-brand' %> </a>
@@ -18,7 +18,7 @@
       <% if user_signed_in? %>
         <% if can? :access, :rails_admin %>
           <li class="nav-item mr-sm-2">
-            <%= link_to "Admin", rails_admin_path()%>
+            <%= link_to "Admin", rails_admin_path() %>
           </li>
         <% end %>
         <li class="nav-item dropdown mr-sm-2 my-sm-0">
@@ -41,7 +41,7 @@
   </div>
 </nav>
 
- <div class="container">
+<div class="container">
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>" role="alert">
       <%= value %>
@@ -49,9 +49,12 @@
   <% end %>
 </div>
 
-  <%= yield :sidebar %>
-  <%= yield %>
-  <%= yield :top_content %>
+<% unless @event.blank? %>
+    <%= render :partial => "layouts/sidebar" %>
+<% end %>
+
+<%= yield %>
+<%= yield :top_content %>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
