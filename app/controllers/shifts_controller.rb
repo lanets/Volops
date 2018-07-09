@@ -14,6 +14,8 @@ class ShiftsController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @shift = Shift.new(shift_params)
+    DateTime.parse(@shift.start_time)
+    DateTime.parse(@shift.end_time)
     if @shift.save
       flash[:notice] = 'Shift was successfully created'
       @event.shifts << @shift

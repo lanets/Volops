@@ -8,7 +8,7 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application' %>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/1.5.0/react-datepicker.css">
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,7 +22,7 @@
           </li>
         <% end %>
         <li class="nav-item dropdown mr-sm-2 my-sm-0">
-          <span>Allo </span>
+          <span>Hello </span>
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <%= current_user.first_name.capitalize %>
             <span class="caret"></span>
@@ -49,12 +49,17 @@
   <% end %>
 </div>
 
-<% unless @event.blank? %>
+<div id="wrapper">
+  <% unless @event.blank? %>
     <%= render :partial => "layouts/sidebar" %>
-<% end %>
+  <% end %>
 
-<%= yield %>
-<%= yield :top_content %>
+  <div class="container-fluid" id="page-content-wrapper">
+    <%= yield %>
+    <%= yield :top_content %>
+  </div>
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
