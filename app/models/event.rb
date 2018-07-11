@@ -6,4 +6,5 @@ class Event < ApplicationRecord
   belongs_to :user, optional: true
   has_many :teams
   has_many :teams_applications
+  has_many :shifts
 end

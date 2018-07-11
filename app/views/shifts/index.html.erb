@@ -26,14 +26,12 @@
         <tbody>
         <% @shifts.each do |s| %>
           <tr>
-            <td><%= s.start_date %></td>
-            <td> <%= s.end_date %> </td>
+            <td><%= s.start_time.to_formatted_s(:rfc822) %></td>
+            <td> <%= s.end_time.to_formatted_s(:rfc822) %> </td>
           </tr>
         <% end %>
         </tbody>
-
       </table>
-
     <% end %>
   </div>
 <% end %>

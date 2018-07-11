@@ -1,14 +1,23 @@
-<% content_for(:sidebar) do %>
-  <%= render :partial => "layouts/sidebar" %>
-<% end %>
-
 <% content_for :top_content do %>
-  <div class="container">
-    <div class="panel panel-default">
-      <h2>Requirements of <%= @event.title %> </h2>
-    </div>
-    <div class="panel-body">
-      Requirement test
-    </div>
+  <div class="panel panel-default">
+    <h2>Requirements of <%= @event.title %> </h2>
+  </div>
+  <div class="panel-body">
+    <% if @requirements.empty? %>
+      <div class="jumbotron">
+        <h3>No Requirements found </h3>
+        <% if can? :create, Requirement %>
+          <p>Start creating shift requirements here</p>
+          <%= link_to 'Create new requirements', new_event_requirement(event_id: @event) %>
+        <% end %>
+      </div>
+
+    <% else %>
+      <% if can? :create, Requirement %>
+        <%= link_to 'Create new requirements', new_event_requirement(event_id: @event) %>
+      <% end %>
+
+      Create Table here
+    <% end %>
   </div>
 <% end %>

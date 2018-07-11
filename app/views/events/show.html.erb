@@ -4,7 +4,6 @@
 
 
 <% content_for :top_content do %>
-  <div class="container">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h2 class="panel-title">Dashboard - <%= @event.title %> (<%= @event.start_date.to_formatted_s(:short) %>
@@ -18,8 +17,6 @@
         <%= link_to "Back to events listing", events_path, class: "btn btn-primary" %>
       </div>
     </div>
-
-  </div>
 
 <% end %>
 

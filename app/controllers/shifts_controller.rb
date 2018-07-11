@@ -1,5 +1,6 @@
 class ShiftsController < ApplicationController
   load_and_authorize_resource
+  skip_before_action :verify_authenticity_token
 
   def index
     @event = Event.find(params[:event_id])
@@ -14,8 +15,8 @@ class ShiftsController < ApplicationController
   def create
     @event = Event.find(params[:event_id])
     @shift = Shift.new(shift_params)
-    DateTime.parse(@shift.start_time)
-    DateTime.parse(@shift.end_time)
+    DateTime.strptime(@shift.start_time.to_s, '%Y-%m-%d %H:%M')
+    DateTime.strptime(@shift.end_time.to_s, '%Y-%m-%d %H:%M')
     if @shift.save
       flash[:notice] = 'Shift was successfully created'
       @event.shifts << @shift
@@ -29,7 +30,7 @@ class ShiftsController < ApplicationController
   private
 
   def shift_params
-    params.require(:shift).permit(:start_date, :end_date)
+    params.require(:shift).permit(:start_time, :end_time)
   end
 
 end

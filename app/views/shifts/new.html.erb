@@ -9,7 +9,7 @@
     <div class="panel-body">
       <%= render 'shared/errors', object: @shift %>
 
-      <%= react_component('ShiftForm', {shift: @shift}) %>
+      <%= react_component('ShiftForm', {shift: @shift, event: @event}) %>
       <%= link_to "Back to Shifts ", event_shifts_path(@event), class: "btn btn-outline-danger" %>
     </div>
   </div>

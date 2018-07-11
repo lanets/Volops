@@ -8,51 +8,49 @@ class ShiftForm extends React.Component {
     constructor(props){
         super();
         this.state = {
-            start_date: moment(),
-            end_date: moment()
+            start_time: moment(),
+            end_time: moment()
         };
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
+        this.postURL = '/events/' + props.event.id + '/shifts'
     }
 
     handleStartDateChange(e) {
-        this.setState({start_date: moment(e).format()});
-        console.log(this.state.start_date)
+        this.setState({start_time: e});
     }
 
     handleEndDateChange(e) {
-        this.setState({end_date: moment(e).format()});
+        this.setState({end_time: e});
     }
-
-
 
     render() {
         return(
-         <form className="form-group col-md-6">
+         <form method="POST" action={this.postURL} className="form-group col-md-6">
              <div className="form-group col-md-6">
-                 <label>Start Date</label>
+                 <label>Start Time</label>
                  <DatePicker
                      showTimeSelect
                      timeFormat="HH:mm"
                      timeIntervals={15}
-                     dateFormat="LLL"
+                     dateFormat="YYYY-MM-DD HH:mm"
                      timeCaption="Time"
-                     selected={this.state.start_date}
-                     name="shift[start_date]"
+                     selected={this.state.start_time}
+                     name="shift[start_time]"
                      onChange={this.handleStartDateChange}
                      className="form-control"
                  />
              </div>
              <div className="form-group col-md-6">
-                 <label>End Date</label>
+                 <label>End Time</label>
                  <DatePicker
                      showTimeSelect
                      timeFormat="HH:mm"
                      timeIntervals={15}
-                     dateFormat="LLL"
+                     dateFormat="YYYY-MM-DD HH:mm"
                      timeCaption="Time"
-                     selected={this.state.end_date}
-                     name="shift[end_date]"
+                     selected={this.state.end_time}
+                     name="shift[end_time]"
                      onChange={this.handleEndDateChange}
                      className="form-control"
                  />
