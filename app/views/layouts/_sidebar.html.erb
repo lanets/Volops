@@ -14,9 +14,11 @@
       <li>
         <%= link_to '<i class="fa fa-hourglass-start"></i> Shifts'.html_safe, event_shifts_path(@event) %>
       </li>
+      <% if can? :manage, Requirement %>
       <li>
         <%= link_to '<i class="fa fa-clipboard"></i> Requirements'.html_safe, event_requirements_path(@event) %>
       </li>
+      <% end %>
       <li>
         <a href="#"><i class="fa fa-wrench"></i> Schedule Tools</a>
       </li>

@@ -8,16 +8,34 @@
         <h3>No Requirements found </h3>
         <% if can? :create, Requirement %>
           <p>Start creating shift requirements here</p>
-          <%= link_to 'Create new requirements', new_event_requirement(event_id: @event) %>
+          <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event) %>
         <% end %>
       </div>
 
     <% else %>
       <% if can? :create, Requirement %>
-        <%= link_to 'Create new requirements', new_event_requirement(event_id: @event) %>
+        <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event) %>
       <% end %>
-
-      Create Table here
+      <table class="table table-responsive">
+        <thead>
+        <tr>
+          <th>Shift Id</th>
+          <th>Team Id</th>
+          <th>Number Of Mandatory </th>
+          <th>Number Of Optional</th>
+        </tr>
+        </thead>
+        <tbody>
+          <% @requirements.each do |r| %>
+          <tr>
+            <td> <%= r.shift_id %> </td>
+            <td> <%= r.team_id %> </td>
+            <td> <%= r.mandatory %> </td>
+            <td> <%= r.optional %> </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
     <% end %>
   </div>
 <% end %>

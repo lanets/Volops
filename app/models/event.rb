@@ -7,4 +7,5 @@ class Event < ApplicationRecord
   has_many :teams
   has_many :teams_applications
   has_many :shifts
+  has_many :requirements
 end
