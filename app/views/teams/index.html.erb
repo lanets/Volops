@@ -1,52 +1,50 @@
 <% content_for :top_content do %>
-  <div class="container" id="page-content-wrapper">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <H2> Teams of <%= @event.title %> </H2>
-      </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <H2> Teams of <%= @event.title %> </H2>
+    </div>
 
-      <br>
+    <br>
 
-      <div class="panel-body">
-        <% if @teams.empty? %>
-          <div class="jumbotron">
-            <h3>No teams found for this event</h3>
-            <p>Start creating a team here here</p>
-            <% if can? :create, Event %>
-            <%= link_to 'Created new team', new_event_team_path, class: 'btn btn-primary btn-lg' %>
-              <% end %>
-          </div>
-
-        <% else %>
+    <div class="panel-body">
+      <% if @teams.empty? %>
+        <div class="jumbotron">
+          <h3>No teams found for this event</h3>
+          <p>Start creating a team here here</p>
           <% if can? :create, Event %>
             <%= link_to 'Created new team', new_event_team_path, class: 'btn btn-primary btn-lg' %>
           <% end %>
-            <%= link_to 'View Application', event_teams_applications_path(event_id: @event.id), class: 'btn btn-primary btn-lg' %>
-          <table class="table table-hover">
-            <thead>
-            <tr>
-              <th>Name of Team</th>
-              <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <% @teams.each do |t| %>
-              <tr>
-                <td><%= t.title %></td>
-                <td><%= link_to 'View', event_team_path(event_id: @event.id, id: t.id) %></td>
-              </tr>
-            <% end %>
-            </tbody>
+        </div>
 
-          </table>
+      <% else %>
+        <% if can? :create, Event %>
+          <%= link_to 'Created new team', new_event_team_path, class: 'btn btn-primary btn-lg' %>
         <% end %>
+        <%= link_to 'View Application', event_teams_applications_path(event_id: @event.id), class: 'btn btn-primary btn-lg' %>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Name of Team</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @teams.each do |t| %>
+            <tr>
+              <td><%= t.title %></td>
+              <td><%= link_to 'View', event_team_path(event_id: @event.id, id: t.id) %></td>
+            </tr>
+          <% end %>
+          </tbody>
 
-        <% %>
+        </table>
+      <% end %>
 
-      </div>
-
+      <% %>
 
     </div>
+
+
   </div>
 <% end %>
 

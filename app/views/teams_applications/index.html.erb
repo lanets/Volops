@@ -1,15 +1,13 @@
 <% content_for :top_content do %>
-  <div class="container">
-    <div class="panel panel-default">
-      <div class="panel-default">
-        <h2>View teams application</h2>
-      </div>
+  <div class="panel panel-default">
+    <div class="panel-default">
+      <h2>View teams application</h2>
     </div>
-    <div class="panel-body">
-      <% if @teams_applications.empty? %>
-        <p>No application has been submitted</p>
-        <%= link_to 'Apply here', new_event_teams_application_path(event_id: @event), class: 'btn btn-primary' %>
-      <% end %>
-    </div>
+  </div>
+  <div class="panel-body">
+    <% if @teams_applications.empty? %>
+      <p>No application has been submitted</p>
+      <%= link_to 'Apply here', new_event_teams_application_path(event_id: @event), class: 'btn btn-primary' %>
+    <% end %>
   </div>
 <% end %>

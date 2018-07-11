@@ -1,14 +1,12 @@
 <% content_for :top_content do %>
-  <div class="container" id="page-content-wrapper">
     <div class="panel panel-default">
-      <%= link_to 'Return to Team', teams_path(@event), class: ' col-md-2 float-right btn btn-primary' %>
       <div class="panel-heading">
         <h2><%= @team.title %></h2>
       </div>
       <br>
       <div class="panel-body">
         <p><%= @team.description %></p>
+        <%= link_to 'Return to Team', event_teams_path(@event), class: ' col-md-2 btn btn-primary' %>
       </div>
     </div>
-  </div>
 <% end %>
