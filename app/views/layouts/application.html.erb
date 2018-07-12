@@ -52,9 +52,12 @@
 <div id="wrapper">
   <% unless @event.blank? %>
     <%= render :partial => "layouts/sidebar" %>
+    <div class="container-fluid" id="page-content-wrapper">
+    <% else %>
+    <div class="container center-block">
   <% end %>
 
-  <div class="container-fluid" id="page-content-wrapper">
+
     <%= yield %>
     <%= yield :top_content %>
   </div>

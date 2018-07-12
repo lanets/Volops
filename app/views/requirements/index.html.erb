@@ -8,13 +8,13 @@
         <h3>No Requirements found </h3>
         <% if can? :create, Requirement %>
           <p>Start creating shift requirements here</p>
-          <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event) %>
+          <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event),class: 'btn btn-primary' %>
         <% end %>
       </div>
 
     <% else %>
       <% if can? :create, Requirement %>
-        <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event) %>
+        <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event),class: 'btn btn-primary' %>
       <% end %>
       <table class="table table-responsive">
         <thead>

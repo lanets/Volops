@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_11_193226) do
+ActiveRecord::Schema.define(version: 2018_07_12_204943) do
 
   create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
@@ -60,17 +60,14 @@ ActiveRecord::Schema.define(version: 2018_07_11_193226) do
   end
 
   create_table "teams_applications", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "first_choice_id"
-    t.bigint "second_choice_id"
-    t.bigint "third_choice_id"
     t.bigint "user_id"
     t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "team_id"
+    t.integer "priority"
     t.index ["event_id"], name: "index_teams_applications_on_event_id"
-    t.index ["first_choice_id"], name: "index_teams_applications_on_first_choice_id"
-    t.index ["second_choice_id"], name: "index_teams_applications_on_second_choice_id"
-    t.index ["third_choice_id"], name: "index_teams_applications_on_third_choice_id"
+    t.index ["team_id"], name: "index_teams_applications_on_team_id"
     t.index ["user_id"], name: "index_teams_applications_on_user_id"
   end
 
@@ -113,7 +110,5 @@ ActiveRecord::Schema.define(version: 2018_07_11_193226) do
   add_foreign_key "shifts", "events"
   add_foreign_key "shifts", "users", column: "users_id"
   add_foreign_key "teams", "events"
-  add_foreign_key "teams_applications", "teams", column: "first_choice_id"
-  add_foreign_key "teams_applications", "teams", column: "second_choice_id"
-  add_foreign_key "teams_applications", "teams", column: "third_choice_id"
+  add_foreign_key "teams_applications", "teams"
 end

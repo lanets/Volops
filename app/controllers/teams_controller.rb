@@ -17,7 +17,7 @@ class TeamsController < ApplicationController
     if @team.save
       flash[:notice] = 'Team was successfully created'
       @event.teams << @team
-      redirect_to teams_path(@event)
+      redirect_to event_teams_path(@event)
     else
       flash[:notice] = 'Error creating Event'
       render 'new'
