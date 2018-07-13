@@ -50,8 +50,10 @@
 </div>
 
 <div id="wrapper">
-  <% unless @event.blank? %>
+  <% unless @event.blank?%>
+    <% if !!@event.try(:id) %>
     <%= render :partial => "layouts/sidebar" %>
+      <% end %>
     <div class="container-fluid" id="page-content-wrapper">
     <% else %>
     <div class="container center-block">

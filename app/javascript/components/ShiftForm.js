@@ -2,7 +2,7 @@ import React from "react"
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-import 'react-datepicker/dist/react-datepicker.css';
+
 
 class ShiftForm extends React.Component {
     constructor(props){
@@ -14,6 +14,7 @@ class ShiftForm extends React.Component {
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
         this.postURL = '/events/' + props.event.id + '/shifts'
+        this.csrfToken = $('meta[name="csrf-token"]')[0].content
     }
 
     handleStartDateChange(e) {
@@ -55,6 +56,7 @@ class ShiftForm extends React.Component {
                      className="form-control"
                  />
              </div>
+             <input name="authenticity_token" type="hidden" value={this.csrfToken} />
              <button className="btn btn-primary" type="submit">Create Shift</button>
          </form>
         )
