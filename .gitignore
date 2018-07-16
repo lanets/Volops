@@ -39,6 +39,4 @@ yarn-debug.log*
 volops.code-workspace
 
 #Rubymine
-.idea/*
-.idea/workspace.xml
-.idea/Volops.iml
+.idea
