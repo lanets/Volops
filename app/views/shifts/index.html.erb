@@ -1,6 +1,6 @@
 <% content_for :top_content do %>
   <div class="panel panel-default">
-    <h2>Shifts of <%= @event.title %> </h2>
+    <h2 class="panel-title">Shifts of <%= @event.title %> </h2>
   </div>
   <div class="panel-body">
     <% if @shifts.empty? %>
@@ -17,7 +17,9 @@
         <%= link_to 'Create new shifts here', new_event_shift_path(event_id: @event), class: 'btn btn-primary' %>
         <%= link_to 'View all availabilities ', event_availabilities_path(event_id: @event), class: 'btn btn-primary' %>
       <% end %>
+        <%= link_to 'Submit new availability', new_event_availability_path(event_id: @event), class: 'btn btn-primary' %>
 
+      <br>
 
       <table class="table table-responsive">
         <thead>

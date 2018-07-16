@@ -50,25 +50,24 @@
 </div>
 
 <div id="wrapper">
-  <% unless @event.blank?%>
+  <% unless @event.blank? %>
     <% if !!@event.try(:id) %>
-    <%= render :partial => "layouts/sidebar" %>
-      <% end %>
+      <%= render :partial => "layouts/sidebar" %>
+    <% end %>
     <div class="container-fluid" id="page-content-wrapper">
-    <% else %>
+  <% else %>
     <div class="container center-block">
   <% end %>
 
-
-    <%= yield %>
-    <%= yield :top_content %>
+  <%= yield %>
+  <%= yield :top_content %>
   </div>
-</div>
+  </div>
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 </html>
 
 

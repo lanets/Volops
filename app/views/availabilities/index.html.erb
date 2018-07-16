@@ -8,11 +8,10 @@
     <div class="panel-body">
       <% if @availabilities.empty? %>
         <div class="jumbotron">
-          <p>No Availabilities Submitted</p>
-          <%= link_to 'Submit here', new_event_availability_path(event_id: @event), class: 'btn btn-primary' %>
+          <p>No Availabilities Submitted for this event</p>
         </div>
       <% else %>
-        <%= link_to 'Submit here', new_event_availability_path(event_id: @event), class: 'btn btn-primary' %>
+        <%= link_to 'Return to shifts', event_shifts_path(event_id: @event), class: 'btn btn-primary' %>
         <table class="table table-responsive">
           <thead>
           <tr>
