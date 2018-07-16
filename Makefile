@@ -39,3 +39,6 @@ clean:
 clean-db:
 	 @echo 'Removing database data volume'
 	 docker volume prune -f
+	 docker-compose -f docker-compose.yml rm -sf
+	 docker-compose -f docker-compose.yml build
+

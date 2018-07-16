@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 event = Event.create(title: "Lan ETS 2018", start_date: DateTime.parse("2018-02-09"), end_date: DateTime.parse("2018-02-11"))
+#event = Event.find(10)
 
 Team.create! [
     { title: 'Salle de repos', description: Faker::Lorem.paragraph(3), event_id: event.id },
@@ -17,6 +18,23 @@ Team.create! [
     { title: 'Tech', description: Faker::Lorem.paragraph(3), event_id: event.id },
     { title: 'Sécurité', description: Faker::Lorem.paragraph(3), event_id: event.id }
 ]
+
+Shift.create! [
+                  {start_time: DateTime.parse('2018-02-09 08:00:00'), end_time: DateTime.parse('2018-02-09 12:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-09 12:00:00'), end_time: DateTime.parse('2018-02-09 15:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-09 15:00:00'), end_time: DateTime.parse('2018-02-09 20:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-09 20:00:00'), end_time: DateTime.parse('2018-02-10 00:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-10 00:00:00'), end_time: DateTime.parse('2018-02-10 08:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-10 08:00:00'), end_time: DateTime.parse('2018-02-10 12:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-10 12:00:00'), end_time: DateTime.parse('2018-02-10 16:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-10 16:00:00'), end_time: DateTime.parse('2018-02-10 20:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-10 20:00:00'), end_time: DateTime.parse('2018-02-11 00:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-11 00:00:00'), end_time: DateTime.parse('2018-02-11 08:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-11 08:00:00'), end_time: DateTime.parse('2018-02-11 12:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-11 12:00:00'), end_time: DateTime.parse('2018-02-11 16:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-11 16:00:00'), end_time: DateTime.parse('2018-02-11 20:00:00'), event_id: event.id},
+                  {start_time: DateTime.parse('2018-02-11 20:00:00'), end_time: DateTime.parse('2018-02-11 23:59:00'), event_id: event.id},
+              ]
 
 admin = User.new(
     first_name: "Bach",
@@ -29,8 +47,9 @@ admin = User.new(
     role: "admin")
 admin.skip_confirmation!
 admin.save!
+puts "#{admin.first_name} #{admin.last_name} has been created!"
 
-132.times do
+135.times do
   user = User.new(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
@@ -45,4 +64,5 @@ admin.save!
   user.save!
   puts "#{user.first_name} #{user.last_name} has been created!"
 end
+
 

@@ -32,7 +32,7 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:title, :description, :event_id)
+    params.require(:team).permit(:title, :description)
   end
 
 end
