@@ -8,7 +8,7 @@ class TeamsApplicationsController < ApplicationController
   end
 
   def new
-    @teams_application = TeamsApplication.new
+    @teams_application = TeamsApplication.new(user_id: @current_user.id)
     @event = Event.find(params[:event_id])
   end
 
@@ -29,6 +29,6 @@ class TeamsApplicationsController < ApplicationController
   private
 
   def teams_application_params
-    params.require(:teams_application).permit(:team_id, :priority)
+    params.require(:teams_application).permit(:team_id, :priority, :user_id)
   end
 end

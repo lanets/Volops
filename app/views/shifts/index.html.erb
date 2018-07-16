@@ -14,13 +14,17 @@
 
     <% else %>
       <% if can? :create, Shift %>
-        <%= link_to 'Create new shifts here', new_event_shift_path(event_id: @event) %>
+        <%= link_to 'Create new shifts here', new_event_shift_path(event_id: @event), class: 'btn btn-primary' %>
+        <%= link_to 'View all availabilities ', event_availabilities_path(event_id: @event), class: 'btn btn-primary' %>
       <% end %>
+
+
       <table class="table table-responsive">
         <thead>
         <tr>
           <th>Start Time</th>
           <th>End Time</th>
+          <th>Availability</th>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +32,13 @@
           <tr>
             <td><%= s.start_time.to_formatted_s(:rfc822) %></td>
             <td> <%= s.end_time.to_formatted_s(:rfc822) %> </td>
+            <td>
+              <% if @availabilities.any?{ |a| a.shift_id == s.id} %>
+              <p class="text-success">Available</p>
+              <% else %>
+              <p class="text-danger">Not Available</p>
+              <% end %>
+            </td>
           </tr>
         <% end %>
         </tbody>

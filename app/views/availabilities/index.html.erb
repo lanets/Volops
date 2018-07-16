@@ -1,0 +1,39 @@
+<% content_for :top_content do %>
+  <div class="panel panel-default">
+    <div class="panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Availabilities</h2>
+      </div>
+    </div>
+    <div class="panel-body">
+      <% if @availabilities.empty? %>
+        <div class="jumbotron">
+          <p>No Availabilities Submitted</p>
+          <%= link_to 'Submit here', new_event_availability_path(event_id: @event), class: 'btn btn-primary' %>
+        </div>
+      <% else %>
+        <%= link_to 'Submit here', new_event_availability_path(event_id: @event), class: 'btn btn-primary' %>
+        <table class="table table-responsive">
+          <thead>
+          <tr>
+            <% if can? :manage, Shift %>
+            <th> User id </th>
+            <% end %>
+            <th> Shift </th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @availabilities.each do |a| %>
+            <tr>
+              <% if can? :manage, Shift %>
+              <td><%= a.user_id %></td>
+              <% end %>
+              <td><%= a.shift_id %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
+<% end %>

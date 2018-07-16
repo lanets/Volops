@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :teams_applications
     resources :shifts
     resources :requirements
+    resources :availabilities
   end
 
 end

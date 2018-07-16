@@ -1,0 +1,24 @@
+<% content_for :top_content do %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2>Availability Submission</h2>
+    </div>
+
+    <hr>
+
+    <div class="panel-body">
+      <%= render 'shared/errors', object: @availability %>
+
+      <%= form_with model: [@event, @availability] do |a| %>
+        <div class="form-group col-md-6">
+          <%= a.label :shift %>
+          <%= collection_select(:availability, :shift_id, Shift.where(event_id: @event.id), :id, :shift_name, {:prompt => true}, {class: 'form-control'}) %>
+        </div>
+        <div class="col-md-6">
+          <%= a.submit "Submit", class: 'btn btn-primary' %>
+          <%= link_to 'return to Shifts', event_shifts_path(event_id: @event), class: 'btn btn-outline-danger' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

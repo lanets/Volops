@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :teams, through: :events
   has_many :teams_applications
   has_many :shifts
+  has_many :availabilities
 
   ROLES = [:user, :admin]
 

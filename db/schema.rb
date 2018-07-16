@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_12_204943) do
+ActiveRecord::Schema.define(version: 2018_07_16_133432) do
+
+  create_table "availabilities", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "shift_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shift_id"], name: "index_availabilities_on_shift_id"
+    t.index ["user_id"], name: "index_availabilities_on_user_id"
+  end
 
   create_table "events", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
@@ -102,6 +111,8 @@ ActiveRecord::Schema.define(version: 2018_07_12_204943) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "availabilities", "shifts"
+  add_foreign_key "availabilities", "users"
   add_foreign_key "events", "teams", column: "teams_id"
   add_foreign_key "events", "users"
   add_foreign_key "requirements", "events"
