@@ -41,3 +41,4 @@ volops.code-workspace
 #Rubymine
 .idea/*
 .idea/workspace.xml
+.idea/Volops.iml

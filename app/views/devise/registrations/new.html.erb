@@ -16,6 +16,10 @@
       <%= f.text_field :number, class: 'form-control' %>
     </div>
     <div class="form-group col-md-6">
+      <%= f.label :birthday %>
+      <%= f.date_field :birthday, class: 'form-control' %>
+    </div>
+    <div class="form-group col-md-6">
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
     </div>

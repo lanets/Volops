@@ -100,6 +100,8 @@ GEM
     execjs (2.7.0)
     factory_bot (4.10.0)
       activesupport (>= 3.0.0)
+    faker (1.9.1)
+      i18n (>= 0.7)
     ffi (1.9.25)
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
@@ -309,6 +311,7 @@ DEPENDENCIES
   devise (~> 4.4.3)
   doorkeeper (~> 4.3.2)
   factory_bot (~> 4.8, >= 4.8.2)
+  faker (~> 1.9.1)
   font-awesome-rails (~> 4.7, >= 4.7.0.4)
   i18n (~> 1.0, >= 1.0.1)
   jbuilder (~> 2.5)
@@ -336,4 +339,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

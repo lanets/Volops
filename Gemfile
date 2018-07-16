@@ -78,11 +78,12 @@ gem 'concurrent-ruby', '~> 1.0', '>= 1.0.5'
 gem 'i18n', '~> 1.0', '>= 1.0.1'
 gem 'tzinfo', '~> 1.2', '>= 1.2.5'
 gem 'thread_safe', '~> 0.3.6'
-gem 'atomic', '~> 1.1', '>= 1.1.101'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  #gem to create fake users
+  gem 'faker', '~> 1.9.1'
 end
 
 group :development do
