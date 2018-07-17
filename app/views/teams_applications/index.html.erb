@@ -13,24 +13,24 @@
 
     <% else %>
       <%= link_to 'Apply here', new_event_teams_application_path(event_id: @event), class: 'btn btn-primary' %>
-      <table class="table table-responsive">
-        <thead>
-        <tr>
-          <th>Team Id</th>
-          <th>Priority #</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @teams_applications.each do |t| %>
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
           <tr>
-            <td>
-              <%= t.team_id %></td>
-            <td>
-              <%= t.priority %></td>
+            <th>Team</th>
+            <th>Priority #</th>
           </tr>
-        <% end %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+          <% @teams_applications.each do |t| %>
+            <tr>
+              <td><%= t.team_id %></td>
+              <td><%= t.priority %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
     <% end %>
 
   </div>

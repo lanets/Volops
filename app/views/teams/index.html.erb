@@ -1,4 +1,10 @@
 <% content_for :top_content do %>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to @event.title, event_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active">Teams</li>
+  </ol>
   <div class="row">
     <div class="col-12">
       <% if @teams.empty? %>
@@ -29,13 +35,19 @@
                 <thead>
                 <tr>
                   <th>Name of Team</th>
-                  <th></th>
+                  <th>Application</th>
+                  <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% @teams.each do |t| %>
                   <tr>
                     <td><%= t.title %></td>
+                    <td>
+                      <% if @applications.any? {|a| a.team_id == t.id} %>
+                      <p class="text-warning">Application Submitted</p>
+                      <% end %>
+                    </td>
                     <td><%= link_to 'View', event_team_path(event_id: @event.id, id: t.id) %></td>
                   </tr>
                 <% end %>

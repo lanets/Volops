@@ -1,5 +1,12 @@
 <% content_for :top_content do %>
-
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to @event.title, event_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active">
+      Shifts
+    </li>
+  </ol>
 
   <div class="row">
     <div class="col-12">
@@ -43,7 +50,7 @@
                     <td> <%= s.end_time.to_formatted_s(:rfc822) %> </td>
                     <td>
                       <% if @availabilities.any? {|a| a.shift_id == s.id} %>
-                        <p class="text-success">Available</p>
+                        <p class="text-warning">Submitted</p>
                       <% else %>
                         <p class="text-danger">Not Available</p>
                       <% end %>

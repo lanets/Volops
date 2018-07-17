@@ -10,9 +10,9 @@ class Ability
       can :manage, :all
     elsif user.is? :user
       can :read, :all
+      cannot :read, :admin
       can :manage, Availability, user_id: user.id
       can :manage, TeamsApplication, user_id: user.id
-      cannot :access, :rails_admin
     else
       can :read, Event
     end

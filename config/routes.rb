@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   authenticated :user do
@@ -16,6 +15,11 @@ Rails.application.routes.draw do
     resources :shifts
     resources :requirements
     resources :availabilities
+  end
+
+  namespace :admin do
+    root 'users#index'
+    resources :users, except: [:show]
   end
 
 end

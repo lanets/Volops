@@ -1,4 +1,10 @@
 <% content_for :top_content do %>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <p> <%=@event.title%></p>
+    </li>
+    <li class="breadcrumb-item active">Dashboard</li>
+  </ol>
 
   <h1>Dashboard - <%= @event.title %> (<%= @event.start_date.to_formatted_s(:short) %>
     - <%= @event.end_date.to_formatted_s(:short) %>) </h1>

@@ -4,7 +4,8 @@ class RequirementsController < ApplicationController
   def index
     @event = Event.find(params[:event_id])
     @requirements = Requirement.where(event_id: @event.id).joins(:shift, :team).order('shift_id')
-    puts(@requirements)
+    @teams = Team.where(event_id: @event.id)
+    @shifts = Shift.where(event_id: @event.id)
   end
 
   def new

@@ -1,37 +1,53 @@
 <% content_for :top_content do %>
-  <div class="panel panel-default">
-    <div class="panel-default">
-      <div class="panel-heading">
-        <h2 class="panel-title">Availabilities</h2>
-      </div>
-    </div>
-    <div class="panel-body">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to @event.title, event_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active">
+      Availabilities
+    </li>
+  </ol>
+  <div class="row">
+    <div class="col-12">
       <% if @availabilities.empty? %>
+        <h1>Availabilities</h1>
         <div class="jumbotron">
           <p>No Availabilities Submitted for this event</p>
+          <%= link_to 'Return to shifts', event_shifts_path(event_id: @event), class: 'btn btn-primary' %>
         </div>
       <% else %>
-        <%= link_to 'Return to shifts', event_shifts_path(event_id: @event), class: 'btn btn-primary' %>
-        <table class="table table-responsive">
-          <thead>
-          <tr>
-            <% if can? :manage, Shift %>
-            <th> User id </th>
-            <% end %>
-            <th> Shift </th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @availabilities.each do |a| %>
-            <tr>
-              <% if can? :manage, Shift %>
-              <td><%= a.user_id %></td>
-              <% end %>
-              <td><%= a.shift_id %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+        <div class="card mb-3">
+          <div class="card-header">
+            <h1><i class="fa fa-table"></i> Availabilities</h1>
+          </div>
+          <div class="card-body">
+            <div class="btn-group-justified">
+              <%= link_to 'Return to shifts', event_shifts_path(event_id: @event), class: 'btn btn-danger' %>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <% if can? :manage, Shift %>
+                    <th> User id</th>
+                  <% end %>
+                  <th> Shift</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @availabilities.each do |a| %>
+                  <tr>
+                    <% if can? :manage, Shift %>
+                      <td><%= a.user_id %></td>
+                    <% end %>
+                    <td><%= a.shift_id %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       <% end %>
     </div>
   </div>

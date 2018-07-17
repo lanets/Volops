@@ -33,8 +33,6 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-#Admin panel using railsAdmin
-gem 'rails_admin', '~> 1.3.0'
 #rubocop for automatic code styling
 gem 'rubocop', '~> 0.57.0'
 
@@ -50,6 +48,7 @@ gem 'bootstrap', '~> 4.1.1'
 
 #font awesome for icons
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
+gem 'font-awesome-sass', '~> 5.0.13'
 
 #Autoprefixer to parse css and add prefixes to css rules
 gem 'autoprefixer-rails', '~> 8.5'
@@ -62,9 +61,6 @@ gem 'devise', '~> 4.4.3'
 
 #Cancancan gem for authorization
 gem 'cancancan', '~> 2.2.0'
-
-#Doorkeeper gem for oAuth
-gem 'doorkeeper', '~> 4.3.2'
 
 #Factory bot for using and defining factories
 gem 'factory_bot', '~> 4.8', '>= 4.8.2'

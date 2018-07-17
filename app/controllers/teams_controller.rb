@@ -4,6 +4,7 @@ class TeamsController < ApplicationController
   def index
     @event = Event.find(params[:event_id])
     @teams = Team.where(event_id: @event.id)
+    @applications = TeamsApplication.where({event_id: @event.id, user_id: @current_user.id})
   end
 
   def new
