@@ -1,41 +1,56 @@
 <% content_for :top_content do %>
-  <div class="panel panel-default">
-    <h2>Requirements of <%= @event.title %> </h2>
-  </div>
-  <div class="panel-body">
-    <% if @requirements.empty? %>
-      <div class="jumbotron">
-        <h3>No Requirements found </h3>
-        <% if can? :create, Requirement %>
-          <p>Start creating shift requirements here</p>
-          <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event),class: 'btn btn-primary' %>
+  <div class="row">
+    <div class="col-12">
+      <div class="panel-body">
+        <% if @requirements.empty? %>
+          <h1>Requirements of <%= @event.title %> </h1>
+          <hr>
+          <div class="jumbotron">
+            <h3>No Requirements found </h3>
+            <% if can? :create, Requirement %>
+              <p>Start creating shift requirements here</p>
+              <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event),class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+
+        <% else %>
+          <div class="card-mb-3">
+            <div class="card-header">
+              <h1><i class="fa fa-table"></i> Requirements</h1>
+            </div>
+            <div class="card-body">
+              <div class="btn-group-justified">
+                <% if can? :create, Requirement %>
+                  <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event),class: 'btn btn-primary' %>
+                <% end %>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                  <tr>
+                    <th>Shift Id</th>
+                    <th>Team Id</th>
+                    <th>Number Of Mandatory </th>
+                    <th>Number Of Optional</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @requirements.each do |r| %>
+                    <tr>
+                      <td> <%= r.shift_id %> </td>
+                      <td> <%= r.team_id %> </td>
+                      <td> <%= r.mandatory %> </td>
+                      <td> <%= r.optional %> </td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         <% end %>
       </div>
-
-    <% else %>
-      <% if can? :create, Requirement %>
-        <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event),class: 'btn btn-primary' %>
-      <% end %>
-      <table class="table table-responsive">
-        <thead>
-        <tr>
-          <th>Shift Id</th>
-          <th>Team Id</th>
-          <th>Number Of Mandatory </th>
-          <th>Number Of Optional</th>
-        </tr>
-        </thead>
-        <tbody>
-          <% @requirements.each do |r| %>
-          <tr>
-            <td> <%= r.shift_id %> </td>
-            <td> <%= r.team_id %> </td>
-            <td> <%= r.mandatory %> </td>
-            <td> <%= r.optional %> </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% end %>
+    </div>
   </div>
+
 <% end %>

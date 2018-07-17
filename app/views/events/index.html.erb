@@ -1,36 +1,32 @@
 <% content_for :top_content do %>
-    <div class="panel panel-default">
-      <div class="jumbotron col-md-12">
-        <h1> Events page</h1>
-        <p> When user is authenticated, this page becomes root </p>
-        <p> Here, a user can choose which event he wants to view </p>
-        <% if can? :create, Event %>
-          <%= link_to 'Created new event', new_event_path, class: 'btn btn-primary btn-lg' %>
-        <% end %>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <% @events.each do |e| %>
-            <div class="col-md-4 card">
-              <div class="card-body">
-                <div class="col-md-12">
-                  <h4><%= e.title %></h4>
-                </div>
-                <div class="col-md-12">
-                  <p>From <%= e.start_date %> to <%= e.end_date %></p>
-                </div>
-                <div class="col-md-6">
-                  <% if can? :edit, @events %>
-                    <%= link_to 'Edit', edit_event_path(e), class: 'btn btn-link' %>
-                  <% end %>
-                </div>
-                <div class="col-md-6">
-                  <%= link_to 'Go', e, class: 'btn btn-link' %>
-                </div>
-              </div>
+  <div class="jumbotron col-md-12">
+    <h1> Events page</h1>
+    <p> When user is authenticated, this page becomes root </p>
+    <p> Here, a user can choose which event he wants to view </p>
+    <% if can? :create, Event %>
+      <%= link_to 'Created new event', new_event_path, class: 'btn btn-primary btn-lg' %>
+    <% end %>
+  </div>
+  <div class="row">
+    <% @events.each do |e| %>
+      <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white bg-primary o-hidden h-100">
+          <div class="card-body">
+            <div class="card-body-icon">
+              <i class="fa fa-calendar"></i>
             </div>
-          <% end %>
+            <div class="mr-5"><h2><%= e.title %></h2></div>
+            <div class="mr-5">
+              <p>From <%= e.start_date %> to <%= e.end_date %></p>
+            </div>
+              <% if can? :edit, @events %>
+                <%= link_to 'Edit', edit_event_path(e), class: 'card-footer text-white clearfix small z-1' %>
+              <% end %>
+            <%= link_to '<span class="float-right"> Go <i class="fa fa-angle-right"></i> </span>'.html_safe, e, class: 'card-footer text-white clearfix small z-1' %>
+          </div>
         </div>
       </div>
-    </div>
+
+    <% end %>
+  </div>
 <% end %>

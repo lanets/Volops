@@ -1,37 +1,38 @@
-
 <% if user_signed_in? %>
-  <div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-      <li class="sidebar-brand">
-        <%= @event.title %>
+  <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+      <%= link_to '<i class="fa fa-tachometer"></i> <span class="nav-link-text">Dashboard</span>'.html_safe, @event, class: 'nav-link' %>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Teams">
+      <%= link_to '<i class="fa fa-users"></i> <span class="nav-link-text">Teams</span>'.html_safe, event_teams_path(@event), class: 'nav-link' %>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Shifts">
+      <%= link_to '<i class="fa fa-hourglass-start"></i> <span class="nav-link-text">Shifts</span>'.html_safe, event_shifts_path(@event), class: 'nav-link' %>
+    </li>
+    <% if can? :manage, Requirement %>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Requirements">
+        <%= link_to '<i class="fa fa-clipboard"></i> <span class="nav-link-text">Requirements</span>'.html_safe, event_requirements_path(@event), class: 'nav-link' %>
       </li>
-      <li>
-        <%= link_to '<i class="fa fa-tachometer"></i> Dashboard'.html_safe, @event %>
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tools">
+        <a class="nav-link" href="#"><i class="fa fa-wrench"></i> <span class="nav-link-text">Schedule Tools</span></a>
       </li>
-      <li>
-        <%= link_to '<i class="fa fa-users"></i> Teams'.html_safe, event_teams_path(@event) %>
-      </li>
-      <li>
-        <%= link_to '<i class="fa fa-hourglass-start"></i> Shifts'.html_safe, event_shifts_path(@event) %>
-      </li>
-      <% if can? :manage, Requirement %>
-      <li>
-        <%= link_to '<i class="fa fa-clipboard"></i> Requirements'.html_safe, event_requirements_path(@event) %>
-      </li>
-        <li>
-          <a href="#"><i class="fa fa-wrench"></i> Schedule Tools</a>
-        </li>
-      <% end %>
+    <% end %>
 
-      <li>
-        <a href="#"><i class="fa fa-calendar"></i> Schedule</a>
-      </li>
-      <li>
-        <a href="#"><i class="fa fa-download"></i> Import/Export</a>
-      </li>
-      <li>
-        <a href="#"><i class="fa fa-bar-chart"></i> Stats</a>
-      </li>
-    </ul>
-  </div>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Schedule">
+      <a class="nav-link" href="#"><i class="fa fa-calendar"></i> <span class="nav-link-text">Schedule</span></a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Import">
+      <a class="nav-link" href="#"><i class="fa fa-download"></i> <span class="nav-link-text">Import/Export</span></a>
+    </li>
+    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Import">
+      <a class="nav-link" href="#"><i class="fa fa-bar-chart"></i> <span class="nav-link-text">Stats</span></a>
+    </li>
+  </ul>
+  <ul class="navbar-nav sidenav-toggler">
+    <li class="nav-item">
+      <a class="nav-link text-center" id="sidenavToggler">
+        <i class="fa fa-fw fa-angle-left"></i>
+      </a>
+    </li>
+  </ul>
 <% end %>

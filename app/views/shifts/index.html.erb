@@ -1,50 +1,63 @@
 <% content_for :top_content do %>
-  <div class="panel panel-default">
-    <h2 class="panel-title">Shifts of <%= @event.title %> </h2>
-  </div>
-  <div class="panel-body">
-    <% if @shifts.empty? %>
-      <div class="jumbotron">
-        <h3> No shifts found </h3>
-        <% if can? :create, Shift %>
-          <p> Start creating shifts here </p>
-          <%= link_to 'Create new shifts here', new_event_shift_path(event_id: @event) %>
-        <% end %>
-      </div>
 
-    <% else %>
-      <% if can? :create, Shift %>
-        <%= link_to 'Create new shifts here', new_event_shift_path(event_id: @event), class: 'btn btn-primary' %>
-        <%= link_to 'View all availabilities ', event_availabilities_path(event_id: @event), class: 'btn btn-primary' %>
-      <% end %>
-        <%= link_to 'Submit new availability', new_event_availability_path(event_id: @event), class: 'btn btn-primary' %>
 
-      <br>
+  <div class="row">
+    <div class="col-12">
+      <% if @shifts.empty? %>
+        <h1>Shifts of <%= @event.title %> </h1>
+        <hr>
+        <div class="jumbotron">
+          <h3> No shifts found </h3>
+          <% if can? :create, Shift %>
+            <p> Start creating shifts here </p>
+            <%= link_to 'Create new shifts here', new_event_shift_path(event_id: @event), class: 'btn btn-primary' %>
+          <% end %>
+        </div>
 
-      <table class="table table-responsive">
-        <thead>
-        <tr>
-          <th>Start Time</th>
-          <th>End Time</th>
-          <th>Availability</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @shifts.each do |s| %>
-          <tr>
-            <td><%= s.start_time.to_formatted_s(:rfc822) %></td>
-            <td> <%= s.end_time.to_formatted_s(:rfc822) %> </td>
-            <td>
-              <% if @availabilities.any?{ |a| a.shift_id == s.id} %>
-              <p class="text-success">Available</p>
-              <% else %>
-              <p class="text-danger">Not Available</p>
+      <% else %>
+        <div class="card mb-3">
+          <div class="card-header">
+             <h1><i class="fa fa-table"></i> Shifts</h1>
+          </div>
+          <div class="card-body">
+            <div class="btn-group-justified">
+              <% if can? :create, Shift %>
+                <%= link_to 'Create new shifts here', new_event_shift_path(event_id: @event), class: 'btn btn-primary' %>
+                <%= link_to 'View all availabilities ', event_availabilities_path(event_id: @event), class: 'btn btn-info' %>
               <% end %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    <% end %>
+              <%= link_to 'Submit new availability', new_event_availability_path(event_id: @event), class: 'btn btn-success' %>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Availability</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @shifts.each do |s| %>
+                  <tr>
+                    <td><%= s.start_time.to_formatted_s(:rfc822) %></td>
+                    <td> <%= s.end_time.to_formatted_s(:rfc822) %> </td>
+                    <td>
+                      <% if @availabilities.any? {|a| a.shift_id == s.id} %>
+                        <p class="text-success">Available</p>
+                      <% else %>
+                        <p class="text-danger">Not Available</p>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+
   </div>
 <% end %>

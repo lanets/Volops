@@ -10,64 +10,77 @@
   <%= javascript_pack_tag 'application' %>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/1.5.0/react-datepicker.css">
 </head>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand"> <%= link_to 'Volops', root_path, class: 'navbar-brand' %> </a>
-  <div class="collapse navbar-collapse">
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <%= link_to 'Volops', root_path, class: 'navbar-brand' %>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <% unless @event.blank? %>
+      <% if !!@event.try(:id) %>
+        <%= render :partial => "layouts/sidebar" %>
+      <% end %>
+    <% end %>
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
         <% if can? :access, :rails_admin %>
           <li class="nav-item mr-sm-2">
-            <%= link_to "Admin", rails_admin_path() %>
+            <%= link_to "Admin", rails_admin_path(), class: 'nav-link' %>
           </li>
         <% end %>
         <li class="nav-item dropdown mr-sm-2 my-sm-0">
-          <span>Hello </span>
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <%= current_user.first_name.capitalize %>
+          <a class="nav-link dropdown-toggle mr-lg-2" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+            Hello <%= current_user.first_name.capitalize %>
             <span class="caret"></span>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item"><%= link_to 'Edit Profile', edit_user_registration_path %></a>
-            <a class="dropdown-item"><%= link_to 'Log out', destroy_user_session_path, method: :delete %></a>
+            <h6 class="dropdown-header">Account</h6>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'Edit Profile', edit_user_registration_path, class: 'dropdown-item' %>
+            <div class="dropdown-divider"></div>
+            <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'dropdown-item text-red' %>
           </div>
         </li>
       <% else %>
-        <li class="nav-item">
-          <a class="nav-link"> <%= link_to 'Log In', new_user_session_path %> </a>
+        <li class="nav-item mr-sm-2">
+          <%= link_to 'Log In', new_user_session_path, class: 'nav-link' %>
         </li>
       <% end %>
     </ul>
   </div>
+
 </nav>
 
-<div class="container">
-  <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>" role="alert">
-      <%= value %>
-    </div>
-  <% end %>
-</div>
-
-<div id="wrapper">
-  <% unless @event.blank? %>
-    <% if !!@event.try(:id) %>
-      <%= render :partial => "layouts/sidebar" %>
+<div class="content-wrapper">
+  <div class="container-fluid">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>" role="alert">
+        <%= value %>
+      </div>
     <% end %>
-    <div class="container-fluid" id="page-content-wrapper">
-  <% else %>
-    <div class="container center-block">
-  <% end %>
-
-  <%= yield %>
-  <%= yield :top_content %>
-  </div>
   </div>
 
+  <div class="container-fluid">
+    <%= yield %>
+    <%= yield :top_content %>
 
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Lan ETS 2018</small>
+        </div>
+      </div>
+    </footer>
+  </div>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+</div>
+
+
+</body>
+
 </html>
 
 
