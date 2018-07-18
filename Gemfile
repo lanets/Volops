@@ -56,9 +56,6 @@ gem 'autoprefixer-rails', '~> 8.5'
 #Webpacker for react
 gem 'webpacker', '~> 3.5', '>= 3.5.3'
 
-#jquery
-gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
-
 #Devise gem for authentication
 gem 'devise', '~> 4.4.3'
 

@@ -8,9 +8,10 @@ class ShiftForm extends React.Component {
     constructor(props){
         super();
         this.state = {
-            start_time: moment(),
-            end_time: moment()
+            start_time: props.shift.start_time? moment(props.shift.start_time) : moment(),
+            end_time: props.shift.end_time? moment(props.shift.end_time) : moment()
         };
+        this.edit = props.edit
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
         this.postURL = '/events/' + props.event.id + '/shifts'
@@ -26,6 +27,12 @@ class ShiftForm extends React.Component {
     }
 
     render() {
+        let button
+        if(this.edit) {
+            button = <button className="btn btn-primary" type="submit">Edit</button>
+        } else {
+            button = <button className="btn btn-primary" type="submit">Create Shift</button>
+        }
         return(
          <form method="POST" action={this.postURL} className="form-group col-md-6">
              <div className="form-group col-md-6">
@@ -57,7 +64,7 @@ class ShiftForm extends React.Component {
                  />
              </div>
              <input name="authenticity_token" type="hidden" value={this.csrfToken} />
-             <button className="btn btn-primary" type="submit">Create Shift</button>
+             {button}
          </form>
         )
     }

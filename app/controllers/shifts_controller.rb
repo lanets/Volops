@@ -27,6 +27,23 @@ class ShiftsController < ApplicationController
     end
   end
 
+  def edit
+    @event = Event.find(params[:event_id])
+    @shift = Shift.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:event_id])
+    @shift = Shift.find(params[:id])
+    if @shift.update(shift_params)
+      flash[:notice] = 'Team was successfully updated'
+      redirect_to event_shifts_path(@event)
+    else
+      flash[:notice] = 'Error updating Shift'
+      render 'edit'
+    end
+  end
+
   private
 
   def shift_params

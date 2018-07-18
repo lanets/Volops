@@ -41,6 +41,9 @@
                   <th>Start Time</th>
                   <th>End Time</th>
                   <th>Availability</th>
+                  <% if can? :manage, Shift %>
+                  <th>Admin Actions</th>
+                  <% end %>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,6 +58,11 @@
                         <p class="text-danger">Not Available</p>
                       <% end %>
                     </td>
+                    <% if can? :manage, Shift %>
+                      <td>
+                        <%= link_to '<i class="fa fa-pencil"></i> Edit'.html_safe, edit_event_shift_path(event_id: @event, id: s) %>
+                      </td>
+                    <% end %>
                   </tr>
                 <% end %>
                 </tbody>
