@@ -1,7 +1,10 @@
 <% content_for :top_content do %>
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
-      <%= link_to @event.title, event_path(@event) %>
+    <%= link_to @event.title, event_path(@event) %>
+  </li>
+    <li class="breadcrumb-item">
+      <%= link_to 'Shifts', event_shifts_path(event_id: @event) %>
     </li>
     <li class="breadcrumb-item active">
       Availabilities
