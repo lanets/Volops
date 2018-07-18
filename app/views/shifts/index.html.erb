@@ -46,8 +46,8 @@
                 <tbody>
                 <% @shifts.each do |s| %>
                   <tr>
-                    <td><%= s.start_time.to_formatted_s(:rfc822) %></td>
-                    <td> <%= s.end_time.to_formatted_s(:rfc822) %> </td>
+                    <td><%= s.start_time.strftime('%A %B %d - %k:%M') %></td>
+                    <td> <%= s.end_time.strftime('%A %B %d - %k:%M') %> </td>
                     <td>
                       <% if @availabilities.any? {|a| a.shift_id == s.id} %>
                         <p class="text-warning">Submitted</p>

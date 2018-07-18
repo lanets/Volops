@@ -5,6 +5,6 @@ class Shift < ApplicationRecord
   has_many :availabilities
 
   def shift_name
-    "#{start_time.strftime('%a %b %d %k:%M%P')} - #{end_time.strftime('%a %b %d %k:%M%P')}"
+    "#{start_time.strftime('%A %B %d - %k:%M')} - #{end_time.strftime('%A %B %d - %k:%M')}"
   end
 end

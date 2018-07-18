@@ -3,6 +3,8 @@ class AvailabilitiesController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
+    @users = User.all
+    @shifts = Shift.where(event_id: @event.id)
     if @current_user.is? :admin
       @availabilities = Availability.joins(:shift).where(shifts: {event_id: @event.id} )
     else
