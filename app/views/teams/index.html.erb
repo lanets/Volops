@@ -25,7 +25,7 @@
           </div>
           <div class="card-body">
             <div class="btn-group-justified">
-              <% if can? :create, Event %>
+              <% if can? :create, Team %>
                 <%= link_to 'Created new team', new_event_team_path, class: 'btn btn-primary' %>
               <% end %>
               <%= link_to 'View Application', event_teams_applications_path(event_id: @event.id), class: 'btn btn-info' %>
@@ -48,7 +48,13 @@
                       <p class="text-warning">Application Submitted</p>
                       <% end %>
                     </td>
-                    <td><%= link_to 'View', event_team_path(event_id: @event.id, id: t.id) %></td>
+                    <td>
+                      <%= link_to '<i class="fa fa-eye"></i> View'.html_safe, event_team_path(event_id: @event.id, id: t.id) %>
+                       /
+                      <% if can? :update, Team %>
+                      <%= link_to '<i class="fa fa-pencil"></i> Edit'.html_safe, edit_event_team_path(event_id: @event.id, id: t.id) %>
+                      <% end %>
+                    </td>
                   </tr>
                 <% end %>
                 </tbody>

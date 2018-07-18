@@ -1,17 +1,7 @@
 <div class="container">
-  <h1>Edit existing article</h1>
+  <h1>Edit <%= @event.title %></h1>
 
-  <% if @event.errors.any? %>
-    <div class="alert alert-danger" role="alert">
-      <h4 class="alert-heading">Oh snap!</h4>
-      <p>the following errors prevented the event from being created</p>
-      <ul>
-        <% @event.errors.full_messages.each do |msg| %>
-          <li> <%= msg %> </li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/errors', object: @event %>
 
 
   <%= form_for @event do |f| %>
@@ -29,11 +19,8 @@
     </div>
     <div class="col-md-6">
       <%= f.submit "Update", class: 'btn btn-primary' %>
+      <%= link_to "Back to events listing", events_path, class: 'btn btn-primary' %>
     </div>
   <% end %>
-
-  <div class="col-md-4">
-    <%= link_to "Back to events listing", events_path, class: 'btn btn-primary' %>
-  </div>
 
 </div>
