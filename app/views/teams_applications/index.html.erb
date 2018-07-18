@@ -1,37 +1,53 @@
 <% content_for :top_content do %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="panel-title">View teams application</h2>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to @event.title, event_path(@event) %>
+    </li>
+    <li class="breadcrumb-item">
+      <%= link_to 'Teams', event_teams_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active">
+      Application
+    </li>
+  </ol>
+  <div class="row">
+    <div class="col-12">
+      <% if @teams_applications.empty? %>
+        <h1>View teams application</h1>
+        <hr>
+        <div class="jumbotron">
+          <p>No application has been submitted</p>
+        </div>
+
+      <% else %>
+        <div class="card mb-3">
+          <div class="card-header">
+            <h1><i class="fa fa-table"></i> Teams Application </h1>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Team Chosen</th>
+                  <th>Priority #</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @teams_applications.each do |t| %>
+                  <tr>
+                    <td><%= t.user.full_name %></td>
+                    <td><%= t.team.title %></td>
+                    <td><%= t.priority %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-  </div>
-  <div class="panel-body">
-    <% if @teams_applications.empty? %>
-      <div class="jumbotron">
-        <p>No application has been submitted</p>
-        <%= link_to 'Apply here', new_event_teams_application_path(event_id: @event), class: 'btn btn-primary' %>
-      </div>
-
-    <% else %>
-      <%= link_to 'Apply here', new_event_teams_application_path(event_id: @event), class: 'btn btn-primary' %>
-      <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-          <thead>
-          <tr>
-            <th>Team</th>
-            <th>Priority #</th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @teams_applications.each do |t| %>
-            <tr>
-              <td><%= t.team_id %></td>
-              <td><%= t.priority %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
-    <% end %>
-
   </div>
 <% end %>

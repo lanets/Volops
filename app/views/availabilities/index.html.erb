@@ -41,7 +41,7 @@
                 <% @availabilities.each do |a| %>
                   <tr>
                     <% if can? :manage, Shift %>
-                      <td><%= a.user.first_name %> <%= a.user.last_name %></td>
+                      <td><%= a.user.full_name %></td>
                     <% end %>
                     <td><%= a.shift.shift_name %></td>
                   </tr>

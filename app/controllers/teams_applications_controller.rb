@@ -4,6 +4,7 @@ class TeamsApplicationsController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
+    @users = User.all
     @teams = Team.where(event_id: @event.id)
     if @current_user.is? :admin
       @teams_applications = TeamsApplication.where(event_id: @event.id)

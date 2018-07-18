@@ -16,4 +16,8 @@ class User < ApplicationRecord
   def is?(requested_role)
     self.role == requested_role.to_s
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
