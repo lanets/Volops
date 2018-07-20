@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  shift: one
+  team: one
+  comment: MyText
+
+two:
+  user: two
+  shift: two
+  team: two
+  comment: MyText

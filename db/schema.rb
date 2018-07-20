@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_18_161256) do
+ActiveRecord::Schema.define(version: 2018_07_19_230551) do
 
   create_table "availabilities", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "user_id"
@@ -44,6 +44,20 @@ ActiveRecord::Schema.define(version: 2018_07_18_161256) do
     t.index ["event_id"], name: "index_requirements_on_event_id"
     t.index ["shift_id"], name: "index_requirements_on_shift_id"
     t.index ["team_id"], name: "index_requirements_on_team_id"
+  end
+
+  create_table "schedules", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "shift_id"
+    t.bigint "team_id"
+    t.bigint "event_id"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_schedules_on_event_id"
+    t.index ["shift_id"], name: "index_schedules_on_shift_id"
+    t.index ["team_id"], name: "index_schedules_on_team_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
   create_table "shifts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -118,6 +132,10 @@ ActiveRecord::Schema.define(version: 2018_07_18_161256) do
   add_foreign_key "requirements", "events"
   add_foreign_key "requirements", "shifts"
   add_foreign_key "requirements", "teams"
+  add_foreign_key "schedules", "events"
+  add_foreign_key "schedules", "shifts"
+  add_foreign_key "schedules", "teams"
+  add_foreign_key "schedules", "users"
   add_foreign_key "shifts", "events"
   add_foreign_key "shifts", "users", column: "users_id"
   add_foreign_key "teams", "events"

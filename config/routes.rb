@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :shifts
     resources :requirements
     resources :availabilities
+    resources :schedules
   end
 
   namespace :admin do

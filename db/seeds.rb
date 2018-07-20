@@ -71,7 +71,6 @@ admin.save!
   puts "#{user.first_name} #{user.last_name} has been created!"
 end
 
-
 users = User.where(role: 'user')
 #Create requirements
 Requirement.create! [

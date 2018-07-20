@@ -25,10 +25,11 @@
           </div>
           <div class="card-body">
             <div class="btn-group-justified">
-              <% if can? :create, Team %>
+              <% if can? :manage, Team %>
                 <%= link_to 'Created new team', new_event_team_path, class: 'btn btn-primary' %>
+                <%= link_to 'View Application', event_teams_applications_path(event_id: @event.id), class: 'btn btn-info' %>
               <% end %>
-              <%= link_to 'View Application', event_teams_applications_path(event_id: @event.id), class: 'btn btn-info' %>
+              <%= link_to 'Apply', new_event_teams_application_path(event_id: @event.id), class: 'btn btn-success' %>
             </div>
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -1,0 +1,15 @@
+<% content_for :top_content do %>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to @event.title, event_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active">Scheduling tools</li>
+  </ol>
+  <div class="row">
+    <div class="col-12">
+      <h1>Scheduling Tools</h1>
+      <hr>
+      <%= react_component('Scheduler', {shifts: @shifts, event: @event, requirements: @requirements, availabilities: @availabilities, users: @users}) %>
+    </div>
+  </div>
+<% end %>

@@ -14,7 +14,7 @@
         <%= link_to '<i class="fa fa-clipboard"></i> <span class="nav-link-text">Requirements</span>'.html_safe, event_requirements_path(@event), class: 'nav-link' %>
       </li>
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tools">
-        <a class="nav-link" href="#"><i class="fa fa-wrench"></i> <span class="nav-link-text">Schedule Tools</span></a>
+        <%= link_to '<i class="fa fa-wrench"></i> <span class="nav-link-text">Schedule Tools</span>'.html_safe, event_schedules_path(@event), class: 'nav-link' %>
       </li>
     <% end %>
 
