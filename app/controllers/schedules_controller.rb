@@ -24,16 +24,46 @@ class SchedulesController < ApplicationController
           else
             mandatory = false
           end
-          @schedule << Schedule.new(shift: s.id, team: r.team_id, available: false, assigned: false, position: i, mandatory: mandatory)
+          @schedule << Schedule.new(shift_id: s.id, team_id: r.team_id, available: false, assigned: false, position: i, mandatory: mandatory)
         end
       end
     end
 
     priorityTable = create_priority(@requirements, @shifts, @availabilities)
+    priorityTable.sort_by { |p| [p.requirements, p.availabilities] }
+
+    priorityTable.foreach do |p|
+      schedule = @schedule.select {|s| s.shift_id == p.shift_id}
+      availabilities = @availabilities.select { |a| a.shift_id == shift_id}
+      if (p.availabilities == 1 && p.requirements == 1)
+        schedule[0].user_id = availabilities[0].user_id
+      else
+        schedule.foreach do |s|
+          match(availabilities, s, @applications, @shifts, @schedule, 1)
+          match(availabilities, s, @applications, @shifts, @schedule, 2)
+          match(availabilities, s, @applications, @shifts, @schedule, 3)
+          match(availabilities, s, @applications, @shifts, @schedule, 0)
+
+        end
+      end
+    end
 
   end
 
   private
+
+
+  def match(availabilities, schedule, applications, shifts, schedule_table, priority)
+    availabilities.foreach do |availability|
+      unless tired(availability.shift_id, availability.user_id, shifts, schedule_table)
+        user_application = applications.select { |application| application.user_id == availability.user_id}
+        team_application = user_application.select { |application | application.team_id == schedule.team_id}
+        if ((team_application.present? && team_application.priority == priority && schedule.user_id.present?) || priority == 0)
+          schedule.user_id = availability.user_id
+        end
+      end
+    end
+  end
 
   def tired(shift_id, user_id, shifts, schedule)
     tired = false
@@ -88,8 +118,8 @@ class SchedulesController < ApplicationController
       total_availabilities = availabilities_shift.count
       priority_table << {shift: s.id, requirements: total_requirements, availabilities: total_availabilities }
     end
-
   end
+
 
 
 end
