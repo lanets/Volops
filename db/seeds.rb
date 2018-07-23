@@ -47,7 +47,7 @@ admin = User.new(
     last_name: "Nguyen-Ngoc",
     number: Faker::PhoneNumber.phone_number,
     birthday: Faker::Date.birthday.to_date,
-    email: "bachguyen0408@gmail.com",
+    email: "bachnguyen0408@gmail.com",
     password: "allo123",
     password_confirmation: "allo123",
     role: "admin")

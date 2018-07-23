@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_19_230551) do
+ActiveRecord::Schema.define(version: 2018_07_23_143018) do
 
   create_table "availabilities", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "user_id"
@@ -54,6 +54,10 @@ ActiveRecord::Schema.define(version: 2018_07_19_230551) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "available"
+    t.boolean "assigned"
+    t.integer "position"
+    t.boolean "mandatory"
     t.index ["event_id"], name: "index_schedules_on_event_id"
     t.index ["shift_id"], name: "index_schedules_on_shift_id"
     t.index ["team_id"], name: "index_schedules_on_team_id"
