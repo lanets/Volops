@@ -7,16 +7,19 @@ Rails.application.routes.draw do
 
   root to: 'pages#index'
 
-  resources :events
-
   resources :events do
     resources :teams
     resources :teams_applications
     resources :shifts
     resources :requirements
     resources :availabilities
-    resources :schedules
+    resources :schedules do
+      collection do
+        get :generate, to: 'schedules#generate'
+      end
+    end
   end
+
 
   namespace :admin do
     root 'users#index'

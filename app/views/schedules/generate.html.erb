@@ -1,0 +1,50 @@
+<% content_for :top_content do %>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to @event.title, event_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active">
+      <%= link_to 'Schedule Tools'.html_safe, event_schedules_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active">
+      Generate Schedule
+    </li>
+  </ol>
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h1><i class="fa fa-table"></i> Generate Schedule</h1>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+              <tr>
+                <th> User Id</th>
+                <th>Shift Id</th>
+                <th>Job (team id + position)</th>
+                <th>Comment</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @schedule.each do |s| %>
+                <tr>
+                  <td>
+                  <% if s.user.present? %>
+                    <%= s.user.full_name %>
+                  <% end %>
+                  </td>
+                  <td><%= s.shift.shift_name %></td>
+                  <td><%= s.team.title %> <%= s.position %> </td>
+                  <td><%= s.comment %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

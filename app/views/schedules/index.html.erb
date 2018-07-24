@@ -9,7 +9,7 @@
     <div class="col-12">
       <h1>Scheduling Tools</h1>
       <hr>
-      <%= react_component('Scheduler', {shifts: @shifts, event: @event, requirements: @requirements, availabilities: @availabilities, users: @users}) %>
+      <%= link_to 'Do it', generate_event_schedules_path(event_id: @event), class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>
