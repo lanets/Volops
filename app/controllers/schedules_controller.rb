@@ -4,7 +4,15 @@ class SchedulesController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
-    @schedule = Schedule.where(event_id: @event.id)
+    @schedules = Schedule.where(event_id: @event.id)
+=begin
+    @schedules.each do |s|
+      s.team = s[:team_id].title
+      s.start_time = s[:shift_id].start_time
+      s.end_time = s[:shift_id].end_time
+      s.user = s[:user_id].full_name
+    end
+=end
   end
 
   def admin
