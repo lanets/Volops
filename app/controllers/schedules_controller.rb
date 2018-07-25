@@ -4,7 +4,31 @@ class SchedulesController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
+    @schedule = Schedule.where(event_id: @event.id)
   end
+
+  def admin
+    @event = Event.find(params[:event_id])
+    @schedule = Schedule.where(event_id: @event.id)
+  end
+
+  def edit
+    @event = Event.find(params[:event_id])
+    @schedule = Schedule.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:event_id])
+    @schedule = Schedule.find(params[:id])
+    if @schedule.update(schedule_params)
+      flash[:notice] = 'Schedule was successfully updated'
+      redirect_to event_schedules_path(@event)
+    else
+      flash[:notice] = 'Error updating schedule'
+      render 'edit'
+    end
+  end
+
 
   def generate
     @event = Event.find(params[:event_id])
@@ -24,7 +48,7 @@ class SchedulesController < ApplicationController
           else
             mandatory = false
           end
-          @schedule << Schedule.new(shift_id: s.id, team_id: r[:team_id], available: false, assigned: false, position: i + 1, mandatory: mandatory)
+          @schedule << Schedule.new(event_id: @event.id, shift_id: s.id, team_id: r[:team_id], position: i + 1, mandatory: mandatory)
         end
       end
     end
@@ -47,11 +71,11 @@ class SchedulesController < ApplicationController
           @schedule[@schedule.index(priority_schedule[0])][:user_id] = availabilities[0][:user_id]
         else
           begin
-            priority_schedule.each do |s|
-              match(availabilities, s, @applications, @shifts, @schedule, 1)
-              match(availabilities, s, @applications, @shifts, @schedule, 2)
-              match(availabilities, s, @applications, @shifts, @schedule, 3)
-              match(availabilities, s, @applications, @shifts, @schedule, 0)
+            priority_schedule.each do |p_s|
+              match(availabilities, p_s, @applications, @shifts, @schedule, 1)
+              match(availabilities, p_s, @applications, @shifts, @schedule, 2)
+              match(availabilities, p_s, @applications, @shifts, @schedule, 3)
+              #match(availabilities, p_s, @applications, @shifts, @schedule, 0)
             end
           rescue StandardError => e
             puts e
@@ -59,46 +83,58 @@ class SchedulesController < ApplicationController
           end
         end
       end
-      puts "done #{index + 1} / #{priority_table.length}"
-      puts
+      puts "done: #{index + 1} / #{priority_table.length}"
+
     end
 
+    if Schedule.where(event_id: @event.id).blank?
+      @schedule.each(&:save)
+      redirect_to event_schedules_path(@event)
+    end
   end
 
   private
 
 
-  def match(availabilities, schedule, applications, shifts, schedule_table, priority)
-    availabilities.each do |availability|
-      # if the user has not done more than 2 consecutive shifts
-      tired = user_tired(availability[:shift_id], availability[:user_id], shifts, schedule_table)
-      unless tired
-        # find all shifts that a user applied to
-        user_applications = applications.select {|application| application[:user_id] == availability[:user_id]}
-        # find all teams that a user applied to
-        team_applications = user_applications.select {|application| application[:team] == schedule[:team]}
-        team_applications.each do |application|
-          # if the team that the user applied to is the priority that the
-          # user has chosen, and that there is no user in the schedule
-          if ((application[:priority] == priority && schedule[:user_id].nil?) || priority == 0)
-            schedule_table.select {|s| s == schedule}.first[:user_id] = availability[:user_id]
+  def match(availabilities, priority_schedule, all_applications, all_shifts, all_schedules, priority)
+    begin
+      availabilities.each do |availability|
+        unless user_tired(availability[:shift_id], availability[:user_id], all_shifts, all_schedules)
+
+          user_application = all_applications.select {|app| app[:user_id] == availability[:user_id]}
+          team_application = user_application.select {|app| app[:team] == priority_schedule[:team]}
+          team_application.each do |application|
+            if (application[:priority] == priority && all_schedules.select {|s| s == priority_schedule}.first[:user_id].nil?) || priority = 0
+              all_schedules.select {|s| s == priority_schedule}.first[:user_id] = availability[:user_id]
+              break
+            end
           end
         end
       end
+    rescue StandardError => e
+      puts e
     end
   end
 
   def get_schedule(index, shifts, schedules)
-    return schedules.select {|s| s[:shift_id] == shifts[index - 1][:id]}.first ||= nil
+    return schedules.select {|s| s[:shift_id] == shifts[index - 1][:id]}.first
   end
 
   def user_tired(shift_id, user_id, shifts, schedules)
+    shift_index = shifts.index {|s| s[:id] == shift_id}
+    current_schedules = schedules.select {|s| s[:shift_id] == shifts[shift_index][:id]}
+    schedules_before = schedules.select {|s| s[:shift_id] == shifts[shift_index - 1][:id]}
+    schedules_after = schedules.select {|s| s[:shift_id] == shifts[shift_index + 1][:id]}
+
+    if current_schedules.any? {|s| s[:user_id] == user_id} || schedules_before.any? {|s| s[:user_id] == user_id} || schedules_after.any? {|s| s[:user_id] == user_id}
+      return true
+    else
+      return false
+    end
+
+
+=begin
     tired = false
-    shift_index = shifts.index {|s| s.id == shift_id}
-    schedule_before = get_schedule(shift_index - 1, shifts, schedules)
-    schedule_after = get_schedule(shift_index + 1, shifts, schedules)
-
-
     if !schedule_before[:user_id].nil? && schedule_before[:user_id].to_s == user_id.to_s
       second_schedule_before = get_schedule(shift_index - 2, shifts, schedules)
       if !second_schedule_before[:user_id].nil? && second_schedule_before[:user_id].to_s == user_id.to_s
@@ -113,6 +149,7 @@ class SchedulesController < ApplicationController
       end
     end
     return tired
+=end
   end
 
   def create_priority(requirements, shifts, availabilities)
@@ -129,6 +166,10 @@ class SchedulesController < ApplicationController
     end
 
     return priority_table
+  end
+
+  def schedule_params
+    params.require(:schedule).permit(:user_id, :comment)
   end
 
 

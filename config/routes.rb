@@ -15,7 +15,8 @@ Rails.application.routes.draw do
     resources :availabilities
     resources :schedules do
       collection do
-        get :generate, to: 'schedules#generate'
+        post :generate, to: 'schedules#generate'
+        get :admin, to: 'schedules#admin'
       end
     end
   end

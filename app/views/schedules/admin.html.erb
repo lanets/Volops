@@ -1,0 +1,62 @@
+<% content_for :top_content do %>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to @event.title, event_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active">Scheduling tools</li>
+  </ol>
+  <div class="row">
+    <div class="col-12">
+      <h1>Scheduling Tools</h1>
+      <hr>
+      <% if @schedule.empty? %>
+        <%= image_tag 'https://vignette.wikia.nocookie.net/starwars/images/9/9a/Palp_trustme.jpg/revision/latest/scale-to-width-down/250?cb=20070114040526' %>
+        <%= link_to 'Do it', generate_event_schedules_path(event_id: @event), class: 'btn btn-primary' %>
+      <% else %>
+        <div class="card mb-3">
+          <div class="card-header">
+            <h1><i class="fa fa-table"></i> Schedule</h1>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                  <th> Schedule #</th>
+                  <th> User Id</th>
+                  <th>Shift Id</th>
+                  <th>Job (team id + position)</th>
+                  <th>Comments</th>
+                  <% if can? :manage, Schedule %>
+                    <th>Action</th>
+                  <% end %>
+                </tr>
+                </thead>
+                <tbody>
+                <% @schedule.each_with_index do |s, index| %>
+                  <tr>
+                    <td> <%= index + 1 %> </td>
+                    <td>
+                      <% if s.user_id.present? %>
+                        <%= s.user.full_name %>
+                      <% end %>
+                    </td>
+                    <td><%= s.shift.shift_name %></td>
+                    <td><%= s.team.title %> <%= s.position %> </td>
+                    <th><%= s.comment %></th>
+                    <% if can? :manage, Schedule %>
+                    <th>
+                      <%= link_to '<i class="fa fa-pencil"></i> Edit'.html_safe, edit_event_schedule_path(event_id: @event, id: s) %>
+                    </th>
+                    <% end %>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

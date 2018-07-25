@@ -3,7 +3,7 @@
     <li class="breadcrumb-item">
       <%= link_to @event.title, event_path(@event) %>
     </li>
-    <li class="breadcrumb-item active">
+    <li class="breadcrumb-item">
       <%= link_to 'Schedule Tools'.html_safe, event_schedules_path(@event) %>
     </li>
     <li class="breadcrumb-item active">
@@ -17,6 +17,7 @@
           <h1><i class="fa fa-table"></i> Generate Schedule</h1>
         </div>
         <div class="card-body">
+          <%= link_to 'Save', event_schedules_path(@schedule), :method => :post %>
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
@@ -25,7 +26,6 @@
                 <th> User Id</th>
                 <th>Shift Id</th>
                 <th>Job (team id + position)</th>
-                <th>Comment</th>
               </tr>
               </thead>
               <tbody>
@@ -33,13 +33,12 @@
                 <tr>
                   <td> <%= index + 1 %> </td>
                   <td>
-                  <% if s.user.present? %>
-                    <%= s.user_id %>
+                  <% if s.user_id.present? %>
+                    <%= s.user.full_name %>
                   <% end %>
                   </td>
-                  <td><%= s.shift_id %></td>
-                  <td><%= s.team_id %> <%= s.position %> </td>
-                  <td><%= s.comment %></td>
+                  <td><%= s.shift.shift_name %></td>
+                  <td><%= s.team.title %> <%= s.position %> </td>
                 </tr>
               <% end %>
               </tbody>
