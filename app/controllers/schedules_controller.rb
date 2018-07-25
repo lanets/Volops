@@ -28,16 +28,23 @@ class SchedulesController < ApplicationController
         end
       end
     end
+    # creates priority table container the number of required users in a shift and the number of available people
     priority_table = create_priority(@requirements, @shifts, @availabilities)
 
+    # sort table by least requirement and least availability
     priority_table = priority_table.sort_by {|p| [p[:requirements], p[:availabilities]]}
 
-    priority_table.each do |p|
+    # iterate through priority table
+    priority_table.each_with_index do |p, index|
+      # skip if there is no requirement or no availability
       if p[:requirements] != 0 || p[:availabilities] != 0
+        # retrieve all schedules at the current shift
         priority_schedule = @schedule.select {|s| s[:shift_id] == p[:shift]}
+        # retrieve all availabilities at current shift
         availabilities = @availabilities.select {|a| a[:shift_id] == p[:shift]}
+        # if availabilities and requirements equals 1, add user to schedule
         if p[:availabilities] == 1 && p[:requirements] == 1
-          priority_schedule[0][:user_id] = availabilities[0][:user_id]
+          @schedule[@schedule.index(priority_schedule[0])][:user_id] = availabilities[0][:user_id]
         else
           begin
             priority_schedule.each do |s|
@@ -45,14 +52,15 @@ class SchedulesController < ApplicationController
               match(availabilities, s, @applications, @shifts, @schedule, 2)
               match(availabilities, s, @applications, @shifts, @schedule, 3)
               match(availabilities, s, @applications, @shifts, @schedule, 0)
-            rescue => error
-
             end
-
-
+          rescue StandardError => e
+            puts e
+            puts
           end
         end
       end
+      puts "done #{index + 1} / #{priority_table.length}"
+      puts
     end
 
   end
@@ -62,54 +70,49 @@ class SchedulesController < ApplicationController
 
   def match(availabilities, schedule, applications, shifts, schedule_table, priority)
     availabilities.each do |availability|
-      #unless tired(availability[:shift_id], availability[:user_id], shifts, schedule_table)
-      user_application = applications.select {|application| application[:user_id] == availability[:user_id]}
-      team_application = user_application.select {|application| application[:team_id] == schedule[:team_id]}
-      if ((team_application.present? && team_application[:priority] == priority && !schedule[:user_id].present?) || priority == 0)
-        schedule[:user_id] = availability[:user_id]
+      # if the user has not done more than 2 consecutive shifts
+      tired = user_tired(availability[:shift_id], availability[:user_id], shifts, schedule_table)
+      unless tired
+        # find all shifts that a user applied to
+        user_applications = applications.select {|application| application[:user_id] == availability[:user_id]}
+        # find all teams that a user applied to
+        team_applications = user_applications.select {|application| application[:team] == schedule[:team]}
+        team_applications.each do |application|
+          # if the team that the user applied to is the priority that the
+          # user has chosen, and that there is no user in the schedule
+          if ((application[:priority] == priority && schedule[:user_id].nil?) || priority == 0)
+            schedule_table.select {|s| s == schedule}.first[:user_id] = availability[:user_id]
+          end
+        end
       end
-      #end
     end
   end
 
-  def tired(shift_id, user_id, shifts, schedule)
+  def get_schedule(index, shifts, schedules)
+    return schedules.select {|s| s[:shift_id] == shifts[index - 1][:id]}.first ||= nil
+  end
+
+  def user_tired(shift_id, user_id, shifts, schedules)
+    tired = false
     shift_index = shifts.index {|s| s.id == shift_id}
-    # returns the shift before. if it does not exist, returns itself
-    shift_before = shifts[shift_index - 1] ||= nil
-    second_shift_before = shifts[shift_index - 2] ||= nil
-    shift_after = shifts[shift_index + 1] ||= nil
-    second_shift_after = shifts[shift_index + 2] ||= nil
-    schedules_before = []
-    schedules_before_twice = []
-    schedules_after = []
-    schedules_after_twice = []
+    schedule_before = get_schedule(shift_index - 1, shifts, schedules)
+    schedule_after = get_schedule(shift_index + 1, shifts, schedules)
 
-    if shift_before.present?
-      schedules_before = schedule.select {|s| s[:shift_id] == shift_before.id}
-    end
-    if second_shift_before.present?
-      schedules_before_twice = schedule.select {|s| s[:shift_id] == second_shift_before.id}
-    end
-    if shift_after.present?
-      schedules_after = schedule.select {|s| s[:shift_id] == shift_after.id}
-    end
-    if second_shift_after.present?
-      schedules_after_twice = schedule.select {|s| s[:shift_id] == second_shift_after.id}
-    end
 
-    if schedules_before.any? {|s| s[:user_id] == user_id}
-      if schedules_before_twice.any? {|s| s[:user_id] == user_id}
-        return true
-      elsif schedules_after.any? {|s| s[:user_id] == user_id}
-        return true
+    if !schedule_before[:user_id].nil? && schedule_before[:user_id].to_s == user_id.to_s
+      second_schedule_before = get_schedule(shift_index - 2, shifts, schedules)
+      if !second_schedule_before[:user_id].nil? && second_schedule_before[:user_id].to_s == user_id.to_s
+        tired = true
+      elsif !schedule_after[:user_id].nil? && schedule_after[:user_id].to_s == user_id.to_s
+        tired = true
       end
-    elsif schedules_after.any? {|s| s[:user_id] == user_id}
-      if schedules_after_twice.any? {|s| s[:user_id] == user_id}
-        return true
+    elsif !schedule_after[:user_id].nil? && schedule_after[:user_id].to_s == user_id.to_s
+      second_schedule_after = get_schedule(shift_index + 2, shifts, schedules)
+      if !second_schedule_after[:user_id].nil? && second_schedule_after[:user_id].to_s == user_id.to_s
+        tired = true
       end
     end
-    return false
-
+    return tired
   end
 
   def create_priority(requirements, shifts, availabilities)

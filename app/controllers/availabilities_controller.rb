@@ -6,7 +6,7 @@ class AvailabilitiesController < ApplicationController
     @users = User.all
     @shifts = Shift.where(event_id: @event.id)
     if @current_user.is? :admin
-      @availabilities = Availability.joins(:shift).where(shifts: {event_id: @event.id} )
+      @availabilities = Availability.joins(:shift).where(shifts: {event_id: @event.id} ).order(:user_id)
     else
       @availabilities = Availability.joins(:shift).where(availabilities: {user_id: @current_user.id}, shifts: {event_id: @event.id})
     end
