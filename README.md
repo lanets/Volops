@@ -1,6 +1,6 @@
 # Volops (Volunteer Operations System)
 
-System to manage volunteers for an event. This system is a rails application within a docker container. It also uses react through the rails webpacker gem. 
+System to manage volunteers for an event. This system is a rails application within a docker container. It also uses react through the react-rails webpacker gem. 
 
 ### Prerequisites
 
@@ -8,16 +8,19 @@ You must have docker and docker-compose installed
 
 ### Installing
 
-```make build``` to build the project. ```make run-dev``` to start the project.
+```make build``` to build the project. ```make run-dev``` to start the project in developement mode
 
-### Running rails command
+### Running rails or yarn command
 
 to run rails command, you must add ```docker-compose run web``` in front of the command
 Example:
 ```
-docker-compose run web bundle install
+docker-compose run web rails db:migrate
 ```
+## Seed
 
+The seed provides real datat from volunteers during Lan ETS 2018. ```docker-compose run web rails db:seed ```
+Afterwards, an admin with the credentials `bachnguyen0408@gmail.com:allo123` will be created 
 ## Deployment
 
 Section under construction
@@ -26,8 +29,9 @@ Section under construction
 
 * [Ruby on Rails V.5.2](https://rubyonrails.org/) - The web framework used
 * [Mariadb](https://mariadb.org/) - Open source MySql database
-* [React](https://reactjs.org/) - Javascript library for building user interfaces
-
+* [React V.16.4.1](https://reactjs.org/) - Javascript library for building user interfaces
+* [Yarn V.16](https://yarnpkg.com/lang/en/) - Javascript package manager
+* [Docker (docker-compose V.3.4](https://www.docker.com/) - Container for easier deployment and installation
 
 
 ## Authors
