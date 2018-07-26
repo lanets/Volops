@@ -7,9 +7,9 @@
   </ol>
   <div class="row">
     <div class="col-12">
+      <% if @schedule.empty? %>
       <h1>Scheduling Tools</h1>
       <hr>
-      <% if @schedule.empty? %>
         <%= image_tag 'https://vignette.wikia.nocookie.net/starwars/images/9/9a/Palp_trustme.jpg/revision/latest/scale-to-width-down/250?cb=20070114040526' %>
         <%= link_to 'Do it', generate_event_schedules_path(event_id: @event), class: 'btn btn-primary' %>
       <% else %>

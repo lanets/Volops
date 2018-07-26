@@ -4,15 +4,31 @@ class SchedulesController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
-    @schedules = Schedule.where(event_id: @event.id)
-=begin
-    @schedules.each do |s|
-      s.team = s[:team_id].title
-      s.start_time = s[:shift_id].start_time
-      s.end_time = s[:shift_id].end_time
-      s.user = s[:user_id].full_name
+    schedules = Schedule.where(event_id: @event.id)
+    teams = Team.where(event_id: @event.id)
+    shifts = Shift.where(event_id: @event.id)
+    users = User.all
+    @resources = []
+    @events = []
+
+    teams.each do |t|
+      resource = {id: t[:id], name: t[:title] }
+      @resources << resource
     end
-=end
+
+    schedules.each_with_index do |s, index|
+      shift = shifts.detect {|sh| sh[:id] == s[:shift_id]}
+      user = users.detect {|u| u[:id] == s[:user_id]}
+      event = {id: index + 1, start: shift[:start_time].strftime('%Y-%m-%d %H:%M:%S'), end: shift[:end_time].strftime('%Y-%m-%d %H:%M:%S'),
+               resourceId: s[:team_id],
+               title: "#{user[:first_name]} #{user[:last_name]}"}
+      unless defined?(user)
+        event[:bgColor] = 'red'
+      end
+      @events << event
+    end
+    @events.sort_by! { |x| Date.parse x[:start] }
+
   end
 
   def admin
