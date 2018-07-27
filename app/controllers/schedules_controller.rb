@@ -5,6 +5,9 @@ class SchedulesController < ApplicationController
   def index
     @event = Event.find(params[:event_id])
     schedules = Schedule.where(event_id: @event.id)
+    if @current_user.is? :user
+      schedules = schedules.select {|s| s[:user_id] == @current_user.id}
+    end
     teams = Team.where(event_id: @event.id)
     shifts = Shift.where(event_id: @event.id)
     users = User.all
