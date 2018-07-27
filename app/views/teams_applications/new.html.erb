@@ -1,25 +1,35 @@
 <% content_for :top_content do %>
-    <div class="panel panel-default">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to @event.title, event_path(@event) %>
+    </li>
+    <li class="breadcrumb-item">
+      <%= link_to "Teams", event_teams_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active"> New Application</li>
+  </ol>
+
+    <div class="panel panel-default col-12">
       <div class="panel-heading">
         <h2>Application to Teams</h2>
       </div>
 
       <hr>
 
-      <div class="panel-body">
+      <div class="panel-body col-6">
 
         <%= render 'shared/errors', object: @teams_application %>
 
         <%= form_with model: [@event, @teams_application] do |t| %>
-          <div class="form-group col-md-6">
+          <div class="form-group">
             <%= t.label :team %>
             <%= collection_select(:teams_application, :team_id, Team.where(event_id: @event.id), :id, :title, {:prompt=> true},  {class: 'form-control'}) %>
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group">
             <%= t.label :priority %>
-            <%= t.select(:priority, [1, 2, 3]) %>
+            <%= t.select(:priority, [1, 2, 3], {:prompt=> true}, {class: 'form-control'})  %>
           </div>
-          <div class="col-md-6">
+          <div class="btn-group-justified">
             <%= t.submit "Apply", class: 'btn btn-primary' %>
             <%= link_to 'Return to Team', event_teams_path(event_id: @event), class: 'btn btn-outline-danger' %>
           </div>
