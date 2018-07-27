@@ -1,0 +1,19 @@
+<ul class="navbar-nav ml-auto">
+  <% if user_signed_in? %>
+    <% if can? :manage, :admin %>
+      <li class="nav-item mr-sm-2">
+        <%= link_to "Admin", admin_root_path(), class: 'nav-link' %>
+      </li>
+    <% end %>
+    <li class="nav-item">
+      <%= link_to "Edit Account", edit_user_registration_path, class: 'nav-link' %>
+    </li>
+    <li class="nav-item">
+      <%= link_to '<i class="fa fa-fw fa-sign-out"></i>Log out'.html_safe, destroy_user_session_path, method: :delete, class: 'nav-link' %>
+    </li>
+  <% else %>
+    <li class="nav-item">
+      <%= link_to 'Log In', new_user_session_path, class: 'nav-link' %>
+    </li>
+  <% end %>
+</ul>

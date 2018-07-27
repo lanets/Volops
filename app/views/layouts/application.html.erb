@@ -8,6 +8,7 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/1.5.0/react-datepicker.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application' %>
   <%= favicon_link_tag 'panda.ico' %>
@@ -21,31 +22,14 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarResponsive">
+    <%= render :partial => "layouts/header" %>
     <% unless @event.blank? %>
       <% if !!@event.try(:id) %>
         <%= render :partial => "layouts/sidebar" %>
       <% end %>
     <% end %>
-    <ul class="navbar-nav ml-auto">
-      <% if user_signed_in? %>
-        <% if can? :manage, :admin %>
-          <li class="nav-item mr-sm-2">
-              <%= link_to "Admin", admin_root_path(), class: 'nav-link' %>
-          </li>
-        <% end %>
-        <li class="nav-item">
-          <%= link_to "Edit Account", edit_user_registration_path, class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to '<i class="fa fa-fw fa-sign-out"></i>Log out'.html_safe, destroy_user_session_path, method: :delete, class: 'nav-link' %>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to 'Log In', new_user_session_path, class: 'nav-link' %>
-        </li>
-      <% end %>
-    </ul>
   </div>
+
 
 </nav>
 
