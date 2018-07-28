@@ -6,7 +6,7 @@
     <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Teams">
       <%= link_to '<i class="fa fa-users"></i> <span class="font-weight-bold">Teams</span>'.html_safe, event_teams_path(@event), class: 'nav-link' %>
     </li>
-    <li class="nav-item mb-2 data-toggle="tooltip" data-placement="right" title="Shifts">
+    <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Shifts">
       <%= link_to '<i class="fa fa-hourglass-start"></i> <span class="font-weight-bold">Shifts</span>'.html_safe, event_shifts_path(@event), class: 'nav-link' %>
     </li>
     <% if can? :manage, Requirement %>

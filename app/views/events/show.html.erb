@@ -6,14 +6,10 @@
     <li class="breadcrumb-item active">Dashboard</li>
   </ol>
 
-  <h1>Dashboard - <%= @event.title %> (<%= @event.start_date.to_formatted_s(:short) %>
-    - <%= @event.end_date.to_formatted_s(:short) %>) </h1>
-
-
-  <hr>
   <div class="row">
     <div class="col-12">
-      <p>This page receives the user and the event to find the appropriate information</p>
+      <h2><%= @event.title %> (<%= @event.start_date.strftime('%a %b %d %Y') %>
+        - <%= @event.end_date.strftime('%a %b %d %Y') %>) </h2>
       <%= link_to "Back to events listing", events_path, class: "btn btn-primary" %>
     </div>
   </div>
