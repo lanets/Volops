@@ -1,0 +1,16 @@
+<% content_for :top_content do %>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to @event.title, event_path(@event) %>
+    </li>
+    <li class="breadcrumb-item active">
+      Stats
+    </li>
+  </ol>
+
+  <div class="row">
+    <div class="col-12">
+      <%= react_component('radarChart', {teams: @teams, radarData: @radar_data}) %>
+    </div>
+  </div>
+<% end %>

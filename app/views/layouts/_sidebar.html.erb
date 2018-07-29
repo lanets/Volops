@@ -22,10 +22,13 @@
       <%= link_to '<i class="fa fa-calendar"></i> <span class="font-weight-bold">Schedule</span>'.html_safe, event_schedules_path(@event), class: 'nav-link' %>
     </li>
     <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Import">
-      <a class="nav-link" href="#"><i class="fa fa-download"></i> <span class="font-weight-bold">Import/Export</span></a>
+      <a class="nav-link" href="#"><i class="fa fa-download"></i>
+        <span class="font-weight-bold">Import/Export</span></a>
     </li>
-    <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Import">
-      <a class="nav-link" href="#"><i class="fa fa-bar-chart"></i> <span class="font-weight-bold">Stats</span></a>
-    </li>
+    <% if can? :manage, :all %>
+      <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Import">
+        <%= link_to '<i class="fa fa-bar-chart"></i> <span class="font-weight-bold">Stats</span>'.html_safe, event_statistics_path(@event), class: 'nav-link' %>
+      </li>
+    <% end %>
   </ul>
 <% end %>

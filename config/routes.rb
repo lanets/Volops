@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :shifts
     resources :requirements
     resources :availabilities
+    resources :statistics, only: [:index]
     resources :schedules do
       collection do
         get :generate, to: 'schedules#generate'

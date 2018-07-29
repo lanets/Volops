@@ -20,8 +20,8 @@
                     </div>
                     <div class="card-title"><h2><%= e.title %></h2></div>
                     <div class="card-text">
-                      <p>Start: <%= e.start_date.strftime('%A %B %d') %></p>
-                      <p>End: <%= e.end_date.strftime('%A %B %d') %></p>
+                      <p>Start: <%= e.start_date.strftime('%A %B %d %Y') %></p>
+                      <p>End: <%= e.end_date.strftime('%A %B %d %Y') %></p>
                     </div>
                     <div class="card-footer">
                       <% if can? :edit, @events %>
