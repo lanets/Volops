@@ -3,13 +3,28 @@ class AvailabilitiesController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
-    @users = User.all
-    @shifts = Shift.where(event_id: @event.id)
+    shifts = Shift.where(event_id: @event.id)
     if @current_user.is? :admin
       @availabilities = Availability.joins(:shift).where(shifts: {event_id: @event.id} ).order(:user_id)
     else
       @availabilities = Availability.joins(:shift).where(availabilities: {user_id: @current_user.id}, shifts: {event_id: @event.id})
     end
+    users = User.where(id: @availabilities.map(&:user_id))
+    @resources = []
+    @events = []
+    users.each do |u|
+      resource = {id: u[:id], name: u.full_name}
+      @resources << resource
+    end
+    @availabilities.each_with_index do |a, index|
+      shift = shifts.detect { |sh| sh[:id] == a[:shift_id]}
+      event = { id: index + 1, start: shift[:start_time].strftime('%Y-%m-%d %H:%M:%S'), end: shift[:end_time].strftime('%Y-%m-%d %H:%M:%S'),
+                resourceId: a[:user_id], title: "shift ##{index + 1}"
+      }
+      @events << event
+    end
+    @events.sort_by! { |x| Date.parse x[:start] }
+
   end
 
   def new

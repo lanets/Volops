@@ -31,7 +31,7 @@
           </div>
           <div class="btn-group-justified">
             <%= t.submit "Apply", class: 'btn btn-primary' %>
-            <%= link_to 'Return to Team', event_teams_path(event_id: @event), class: 'btn btn-outline-danger' %>
+            <%= link_to "Back", :back,  class: "btn btn-outline-danger"  %>
           </div>
         <% end %>
       </div>

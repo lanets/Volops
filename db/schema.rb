@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_23_143018) do
+ActiveRecord::Schema.define(version: 2018_07_28_162539) do
 
   create_table "availabilities", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "user_id"
@@ -27,10 +27,6 @@ ActiveRecord::Schema.define(version: 2018_07_23_143018) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "teams_id"
-    t.bigint "user_id"
-    t.index ["teams_id"], name: "index_events_on_teams_id"
-    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "requirements", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -54,8 +50,6 @@ ActiveRecord::Schema.define(version: 2018_07_23_143018) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "available"
-    t.boolean "assigned"
     t.integer "position"
     t.boolean "mandatory"
     t.index ["event_id"], name: "index_schedules_on_event_id"
@@ -68,22 +62,18 @@ ActiveRecord::Schema.define(version: 2018_07_23_143018) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.bigint "event_id"
-    t.bigint "users_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_shifts_on_event_id"
-    t.index ["users_id"], name: "index_shifts_on_users_id"
   end
 
   create_table "teams", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "event_id"
     t.index ["event_id"], name: "index_teams_on_event_id"
-    t.index ["user_id"], name: "index_teams_on_user_id"
   end
 
   create_table "teams_applications", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -122,7 +112,7 @@ ActiveRecord::Schema.define(version: 2018_07_23_143018) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role"
+    t.string "role", default: "user"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -131,8 +121,6 @@ ActiveRecord::Schema.define(version: 2018_07_23_143018) do
 
   add_foreign_key "availabilities", "shifts"
   add_foreign_key "availabilities", "users"
-  add_foreign_key "events", "teams", column: "teams_id"
-  add_foreign_key "events", "users"
   add_foreign_key "requirements", "events"
   add_foreign_key "requirements", "shifts"
   add_foreign_key "requirements", "teams"
@@ -141,7 +129,6 @@ ActiveRecord::Schema.define(version: 2018_07_23_143018) do
   add_foreign_key "schedules", "teams"
   add_foreign_key "schedules", "users"
   add_foreign_key "shifts", "events"
-  add_foreign_key "shifts", "users", column: "users_id"
   add_foreign_key "teams", "events"
   add_foreign_key "teams_applications", "teams"
 end

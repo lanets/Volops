@@ -20,8 +20,8 @@
     <%= f.date_field :end_date, class: 'form-control'%>
   </div>
   <div class="col-md-6">
-    <%= link_to "Back to events listing", events_path, class: "btn btn-outline-danger" %>
     <%= f.submit "Create", class: 'btn btn-primary' %>
+    <%= link_to "Back", :back,  class: "btn btn-outline-danger"  %>
   </div>
 
 <% end %>

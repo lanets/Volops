@@ -5,8 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
-  before_save :default_role
-
   has_many :events
   has_many :teams, through: :events
   has_many :teams_applications
@@ -21,12 +19,6 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
-  end
-
-  private
-
-  def default_role
-    self.role = 'user'
   end
 
 end
