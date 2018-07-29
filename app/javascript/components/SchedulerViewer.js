@@ -10,7 +10,7 @@ class SchedulerViewer extends Component {
         this.eventDate = moment(props.eventDate).format(DATE_FORMAT);
         this.resources = props.resources;
         this.newDefault = {
-            schedulerWidth: '',
+            schedulerWidth: 1500,
             views: []
         };
         let schedulerData = new SchedulerData(this.eventDate, ViewTypes.Day, false, false, this.newDefault);
