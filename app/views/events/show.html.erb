@@ -1,20 +1,76 @@
 <% content_for :top_content do %>
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
-      <p> <%=@event.title%></p>
+      <%= @event.title %>
     </li>
     <li class="breadcrumb-item active">Dashboard</li>
   </ol>
 
-  <h1>Dashboard - <%= @event.title %> (<%= @event.start_date.to_formatted_s(:short) %>
-    - <%= @event.end_date.to_formatted_s(:short) %>) </h1>
-
-
-  <hr>
   <div class="row">
     <div class="col-12">
-      <p>This page receives the user and the event to find the appropriate information</p>
-      <%= link_to "Back to events listing", events_path, class: "btn btn-primary" %>
+      <h2><%= @event.title %> (<%= @event.start_date.strftime('%a %b %d %Y') %>
+        - <%= @event.end_date.strftime('%a %b %d %Y') %>) </h2>
+      <%= link_to "Back to events listing", events_path, class: "btn btn-outline-danger" %>
+      <div class="col-6 card">
+        <div class="card-header">
+          <h1>Schedule</h1>
+        </div>
+        <div class="card-body">
+          <% if @current_user.is? (:admin) %>
+          <p>Silly goose, Admins should always be present at the event!</p>
+          <% elsif @schedules.empty? && @schedule_not_created %>
+            <p>Schedule has not been created yet. Wait or contact the person in charge</p>
+          <% elsif @schedules.empty? && !@schedule_created %>
+            <p>You are not assigned a shift. Contact the person in charge</p>
+          <% else %>
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
+                <tr>
+                  <th>Shift</th>
+                  <th>Team</th>
+                  <th>Comment</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @schedules.each do |s| %>
+                  <tr>
+                    <td><%= s.shift.shift_name %></td>
+                    <td><%= s.team.title %></td>
+                    <td>
+                      <%= s.comment.present? ? s.comment : "" %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-6 card">
+        <div class="card-header">
+          <h1>Event Stats</h1>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead class="thead-dark">
+              <tr>
+                <td>Resource</td>
+                <td>Data</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>Total Hours</td>
+                <td><%= @total_hours %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

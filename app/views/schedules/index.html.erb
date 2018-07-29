@@ -7,15 +7,16 @@
   </ol>
   <div class="row">
     <div class="col-12">
-      <div class="card mb-3">
-        <div class="card-header">
+      <div class="panel panel-default">
+        <div class="panel-heading">
           <h1>Schedule</h1>
         </div>
-        <div class="card-body" width="100%">
+        <div class="panel-body" >
           <%= react_component('SchedulerViewer', {resources: @resources, events: @events, eventDate: @event[:start_date].strftime('%Y-%m-%d %H:%M:%S')}) %>
         </div>
       </div>
 
     </div>
   </div>
+
 <% end %>

@@ -1,31 +1,31 @@
 <% if user_signed_in? %>
-  <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-      <%= link_to '<i class="fa fa-tachometer"></i> <span class="nav-link-text">Dashboard</span>'.html_safe, @event, class: 'nav-link' %>
+  <ul class="navbar-nav navbar-sidenav " id="exampleAccordion">
+    <li class="nav-item mb-2 mt-4" data-toggle="tooltip" data-placement="right" title="Dashboard">
+      <%= link_to '<i class="fa fa-tachometer"></i> <span class="font-weight-bold">Dashboard</span>'.html_safe, @event, class: 'nav-link ' %>
     </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Teams">
-      <%= link_to '<i class="fa fa-users"></i> <span class="nav-link-text">Teams</span>'.html_safe, event_teams_path(@event), class: 'nav-link' %>
+    <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Teams">
+      <%= link_to '<i class="fa fa-users"></i> <span class="font-weight-bold">Teams</span>'.html_safe, event_teams_path(@event), class: 'nav-link' %>
     </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Shifts">
-      <%= link_to '<i class="fa fa-hourglass-start"></i> <span class="nav-link-text">Shifts</span>'.html_safe, event_shifts_path(@event), class: 'nav-link' %>
+    <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Shifts">
+      <%= link_to '<i class="fa fa-hourglass-start"></i> <span class="font-weight-bold">Shifts</span>'.html_safe, event_shifts_path(@event), class: 'nav-link' %>
     </li>
     <% if can? :manage, Requirement %>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Requirements">
-        <%= link_to '<i class="fa fa-clipboard"></i> <span class="nav-link-text">Requirements</span>'.html_safe, event_requirements_path(@event), class: 'nav-link' %>
+      <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Requirements">
+        <%= link_to '<i class="fa fa-clipboard"></i> <span class="font-weight-bold">Requirements</span>'.html_safe, event_requirements_path(@event), class: 'nav-link' %>
       </li>
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tools">
-        <%= link_to '<i class="fa fa-wrench"></i> <span class="nav-link-text">Schedule Tools</span>'.html_safe, admin_event_schedules_path(@event), class: 'nav-link' %>
+      <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Tools">
+        <%= link_to '<i class="fa fa-wrench"></i> <span class="font-weight-bold">Schedule Tools</span>'.html_safe, admin_event_schedules_path(@event), class: 'nav-link' %>
       </li>
     <% end %>
 
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Schedule">
-      <%= link_to '<i class="fa fa-calendar"></i> <span class="nav-link-text">Schedule</span>'.html_safe, event_schedules_path(@event), class: 'nav-link' %>
+    <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Schedule">
+      <%= link_to '<i class="fa fa-calendar"></i> <span class="font-weight-bold">Schedule</span>'.html_safe, event_schedules_path(@event), class: 'nav-link' %>
     </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Import">
-      <a class="nav-link" href="#"><i class="fa fa-download"></i> <span class="nav-link-text">Import/Export</span></a>
+    <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Import">
+      <a class="nav-link" href="#"><i class="fa fa-download"></i> <span class="font-weight-bold">Import/Export</span></a>
     </li>
-    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Import">
-      <a class="nav-link" href="#"><i class="fa fa-bar-chart"></i> <span class="nav-link-text">Stats</span></a>
+    <li class="nav-item mb-2" data-toggle="tooltip" data-placement="right" title="Import">
+      <a class="nav-link" href="#"><i class="fa fa-bar-chart"></i> <span class="font-weight-bold">Stats</span></a>
     </li>
   </ul>
 <% end %>

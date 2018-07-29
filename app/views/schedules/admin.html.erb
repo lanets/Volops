@@ -8,10 +8,15 @@
   <div class="row">
     <div class="col-12">
       <% if @schedule.empty? %>
-      <h1>Scheduling Tools</h1>
-      <hr>
-        <%= image_tag 'https://vignette.wikia.nocookie.net/starwars/images/9/9a/Palp_trustme.jpg/revision/latest/scale-to-width-down/250?cb=20070114040526' %>
-        <%= link_to 'Do it', generate_event_schedules_path(event_id: @event), class: 'btn btn-primary' %>
+        <h1>Scheduling Tools</h1>
+        <hr>
+        <div class="card col-2">
+          <%= image_tag 'https://vignette.wikia.nocookie.net/starwars/images/9/9a/Palp_trustme.jpg/revision/latest/scale-to-width-down/250?cb=20070114040526', class: 'card-img-top' %>
+          <div class="card-body">
+            <%= link_to 'Do it', generate_event_schedules_path(event_id: @event), class: 'btn btn-primary', remote: true %>
+          </div>
+        </div>
+
       <% else %>
         <div class="card mb-3">
           <div class="card-header">
@@ -23,8 +28,8 @@
                 <thead>
                 <tr>
                   <th> Schedule #</th>
-                  <th> User Id</th>
-                  <th>Shift Id</th>
+                  <th> User</th>
+                  <th>Shift</th>
                   <th>Job (team id + position)</th>
                   <th>Comments</th>
                   <% if can? :manage, Schedule %>
@@ -41,13 +46,20 @@
                         <%= s.user.full_name %>
                       <% end %>
                     </td>
-                    <td><%= s.shift.shift_name %></td>
+                    <td>
+                      <%= s.shift.shift_name %>
+                      <% if s.mandatory == true %>
+                        <p class="text-danger">Mandatory Shift</p>
+                      <% else %>
+                        <p class="text-warning">Optional Shift</p>
+                      <% end %>
+                    </td>
                     <td><%= s.team.title %> <%= s.position %> </td>
                     <th><%= s.comment %></th>
                     <% if can? :manage, Schedule %>
-                    <th>
-                      <%= link_to '<i class="fa fa-pencil"></i> Edit'.html_safe, edit_event_schedule_path(event_id: @event, id: s) %>
-                    </th>
+                      <th>
+                        <%= link_to '<i class="fa fa-pencil"></i> Edit'.html_safe, edit_event_schedule_path(event_id: @event, id: s) %>
+                      </th>
                     <% end %>
                   </tr>
                 <% end %>

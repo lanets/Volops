@@ -1,20 +1,29 @@
-import React from "react"
+import React, {Component} from 'react'
 import Scheduler, {SchedulerData, ViewTypes, DATE_FORMAT} from 'react-big-scheduler'
-//include `react-big-scheduler/lib/css/style.css` for styles, link it in html or import it here
-import 'react-big-scheduler/lib/css/style.css'
 import moment from 'moment'
 import withDragDropContext from './withDnDContext'
 
-class SchedulerViewer extends React.Component {
+class SchedulerViewer extends Component {
     constructor(props) {
         super(props);
         this.events = props.events;
+        this.eventDate = moment(props.eventDate).format(DATE_FORMAT);
         this.resources = props.resources;
-        let schedulerData = new SchedulerData(moment(props.eventDate).format(DATE_FORMAT), ViewTypes.Day);
+        this.newDefault = {
+            schedulerWidth: '',
+            views: []
+        };
+        let schedulerData = new SchedulerData(this.eventDate, ViewTypes.Day, false, false, this.newDefault);
         schedulerData.setResources(props.resources);
-//set events here or later,
-//the event array should be sorted in ascending order by event.start property, otherwise there will be some rendering errors
         schedulerData.setEvents(this.events);
+
+        /*
+        let schedulerData = new SchedulerData('2017-12-18', ViewTypes.Week);
+        schedulerData.isEventPerspective = true;
+        schedulerData.localeMoment.locale('en');
+        schedulerData.setResources(DemoData.resources);
+        schedulerData.setEvents(DemoData.events);
+        */
         this.state = {
             viewModel: schedulerData
         }
@@ -22,38 +31,45 @@ class SchedulerViewer extends React.Component {
 
     render() {
         const {viewModel} = this.state;
-        console.log(this.events);
-        console.log(this.resources);
         return (
             <div>
+                <button onClick={this.prevClick} className={'btn btn-info'}>
+                    <i className="fa fa-chevron-left"></i> Previous Date
+                </button>
+                <button onClick={this.nextClick} className={'btn btn-info'}>
+                    Next Date <i className="fa fa-chevron-right"></i>
+                </button>
                 <Scheduler schedulerData={viewModel}
                            prevClick={this.prevClick}
                            nextClick={this.nextClick}
                            onSelectDate={this.onSelectDate}
                            onViewChange={this.onViewChange}
                            eventItemClick={this.eventClicked}
+                           viewEventClick={this.ops1}
                 />
             </div>
-
-
         )
     }
 
-    prevClick = (schedulerData)=> {
-        schedulerData.prev();
+    prevClick = (schedulerData) => {
+        this.eventDate = moment(this.eventDate).subtract(1, 'd').format(DATE_FORMAT);
+        schedulerData = new SchedulerData(this.eventDate, ViewTypes.Day, false, false, this.newDefault);
         schedulerData.setEvents(this.events);
+        schedulerData.setResources(this.resources);
         this.setState({
             viewModel: schedulerData
         })
-    }
+    };
 
-    nextClick = (schedulerData)=> {
-        schedulerData.next();
+    nextClick = (schedulerData) => {
+        this.eventDate = moment(this.eventDate).add(1, 'd').format(DATE_FORMAT);
+        schedulerData = new SchedulerData(this.eventDate, ViewTypes.Day, false, false, this.newDefault);
         schedulerData.setEvents(this.events);
+        schedulerData.setResources(this.resources);
         this.setState({
             viewModel: schedulerData
         })
-    }
+    };
 
     onViewChange = (schedulerData, view) => {
         schedulerData.setViewType(view.viewType, view.showAgenda, view.isEventPerspective);
@@ -61,12 +77,18 @@ class SchedulerViewer extends React.Component {
         this.setState({
             viewModel: schedulerData
         })
-    }
+    };
 
     onSelectDate = (schedulerData, date) => {
+        schedulerData.setDate(date);
+        schedulerData.setEvents(this.events);
+        this.setState({
+            viewModel: schedulerData
+        })
     };
 
     eventClicked = (schedulerData, event) => {
+        alert('You just clicked an event: {id: ${event.id}, title: ${event.title}}');
     };
 
 }

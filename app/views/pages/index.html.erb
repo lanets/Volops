@@ -1,9 +1,12 @@
 <% content_for :top_content do %>
   <div class="jumbotron">
     <div class="container">
-      <%= react_component("HelloWorld", { greeting: "Welcome. this is a react container" }) %>
+      <%= react_component("HelloWorld", {greeting: "Welcome. this is a react container"}) %>
       <p>Register to get started.</p>
+      <div class="btn-group-justified mb-2">
         <%= link_to 'Register', new_user_registration_path, class: 'btn btn-primary btn-lg' %>
+        <%= link_to 'Log In', new_user_session_path, class: 'btn btn-secondary btn-lg' %>
+      </div>
     </div>
   </div>
 <% end %>

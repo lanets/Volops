@@ -4,35 +4,36 @@
       <%= link_to @event.title, event_path(@event) %>
     </li>
     <li class="breadcrumb-item">
-      <%= link_to "Teams", event_teams_path(@event)%>
+      <%= link_to "Teams", event_teams_path(@event) %>
     </li>
     <li class="breadcrumb-item active">New</li>
   </ol>
 
-  <div class="container">
-    <div class="card card-register mx-auto mt-5">
-      <div class="card-header">
-        <h2 >Create new team</h2>
-      </div>
-      <div class="card-body">
-        <%= render 'shared/errors', object: @team %>
+  <div class="panel panel-default col-12 ">
+    <div class="panel-heading">
+      <h2>Create new team</h2>
+    </div>
 
-        <%= form_for [@event, @team] do |t| %>
-          <div class="form-group">
-            <%= t.label :title %>
-            <%= t.text_field :title, class: 'form-control' %>
-          </div>
-          <div class="form-group">
-            <%= t.label :description %>
-            <%= t.text_area :description, class: 'form-control' %>
-          </div>
-          <div class="btn-group-justified">
-            <%= t.submit "Create", class: 'btn btn-primary' %>
-            <%= link_to "Back to Teams ", event_teams_path(@event), class: "btn btn-outline-danger" %>
-          </div>
+    <hr>
 
-        <% end %>
-      </div>
+    <div class="panel-body col-6">
+      <%= render 'shared/errors', object: @team %>
+
+      <%= form_for [@event, @team] do |t| %>
+        <div class="form-group">
+          <%= t.label :title %>
+          <%= t.text_field :title, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= t.label :description %>
+          <%= t.text_area :description, class: 'form-control' %>
+        </div>
+        <div class="btn-group-justified">
+          <%= t.submit "Create", class: 'btn btn-primary' %>
+          <%= link_to "Back", :back,  class: "btn btn-outline-danger"  %>
+        </div>
+
+      <% end %>
     </div>
 
   </div>

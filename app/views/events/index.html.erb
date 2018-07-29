@@ -1,32 +1,71 @@
 <% content_for :top_content do %>
-  <div class="jumbotron col-md-12">
-    <h1> Events page</h1>
-    <p> When user is authenticated, this page becomes root </p>
-    <p> Here, a user can choose which event he wants to view </p>
-    <% if can? :create, Event %>
-      <%= link_to 'Created new event', new_event_path, class: 'btn btn-primary btn-lg' %>
-    <% end %>
-  </div>
   <div class="row">
-    <% @events.each do |e| %>
-      <div class="col-xl-3 col-sm-6 mb-3">
-        <div class="card text-white bg-primary o-hidden h-100">
-          <div class="card-body">
-            <div class="card-body-icon">
-              <i class="fa fa-calendar"></i>
-            </div>
-            <div class="mr-5"><h2><%= e.title %></h2></div>
-            <div class="mr-5">
-              <p>From <%= e.start_date %> to <%= e.end_date %></p>
-            </div>
-              <% if can? :edit, @events %>
-                <%= link_to 'Edit', edit_event_path(e), class: 'card-footer text-white clearfix small z-1' %>
-              <% end %>
-            <%= link_to '<span class="float-right"> Go <i class="fa fa-angle-right"></i> </span>'.html_safe, e, class: 'card-footer text-white clearfix small z-1' %>
-          </div>
+    <div class="col-12">
+      <div class="panel panel-default">
+        <% if can? :create, Event %>
+          <%= link_to 'Created new event', new_event_path, class: 'btn btn-primary btn-lg' %>
+          <hr>
+        <% end %>
+        <div class="panel-heading">
+        <h2>Upcoming events</h2>
+      </div>
+        <div class="panel-body">
+          <% @events.each do |e| %>
+            <% if e.start_date >= Time.now %>
+              <div class="col-xl-3 col-sm-8 col-md-4 mb-3">
+                <div class="card text-white bg-primary o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="card-title"><h2><%= e.title %></h2></div>
+                    <div class="card-text">
+                      <p>Start: <%= e.start_date.strftime('%A %B %d') %></p>
+                      <p>End: <%= e.end_date.strftime('%A %B %d') %></p>
+                    </div>
+                    <div class="card-footer">
+                      <% if can? :edit, @events %>
+                        <%= link_to '<span >Edit</span>'.html_safe, edit_event_path(e), class: 'text-white card-link' %>
+                      <% end %>
+                      <%= link_to '<span class="float-right"> Go <i class="fa fa-angle-right"></i> </span>'.html_safe, e, class: 'text-white card-link' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="panel-heading">
+          <h2>Past events</h2>
+        </div>
+        <div class="panel-body">
+          <% @events.each do |e| %>
+            <% if e.start_date < Time.now %>
+              <div class="col-xl-3 col-sm-8 col-md-4 mb-3">
+                <div class="card text-white bg-primary o-hidden h-100">
+                  <div class="card-body">
+                    <div class="card-body-icon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <div class="card-title"><h2><%= e.title %></h2></div>
+                    <div class="card-text">
+                      <p>Start: <%= e.start_date.strftime('%A %B %d') %></p>
+                      <p>End: <%= e.end_date.strftime('%A %B %d') %></p>
+                    </div>
+                    <div class="card-footer">
+                      <% if can? :edit, @events %>
+                        <%= link_to '<span >Edit</span>'.html_safe, edit_event_path(e), class: 'text-white card-link' %>
+                      <% end %>
+                      <%= link_to '<span class="float-right"> Go <i class="fa fa-angle-right"></i> </span>'.html_safe, e, class: 'text-white card-link' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
         </div>
       </div>
 
-    <% end %>
+    </div>
   </div>
 <% end %>

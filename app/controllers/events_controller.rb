@@ -24,6 +24,14 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @schedule_not_created = Schedule.where(event_id: @event).empty?
+    @schedules = Schedule.where(event_id: @event, user_id: @current_user.id)
+    shifts = Shift.where(id: @schedules.map(&:shift_id))
+    @total_hours = 0
+    @schedules.each do |s|
+      shift = shifts.detect { |sh| sh[:id] == s[:shift_id]}
+      @total_hours += ((shift[:end_time] - shift[:start_time])/3600).to_i
+    end
   end
 
   def edit

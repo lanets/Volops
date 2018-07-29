@@ -1,10 +1,13 @@
 <% content_for :top_content do %>
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <%= link_to @event.title, event_path(@event) %>
-    </li>
-    <li class="breadcrumb-item active">Teams</li>
-  </ol>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <%= link_to @event.title, event_path(@event) %>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Teams</li>
+    </ol>
+  </nav>
+
   <div class="row">
     <div class="col-12">
       <% if @teams.empty? %>
@@ -24,7 +27,7 @@
             <h1><i class="fa fa-table"></i> Teams </h1>
           </div>
           <div class="card-body">
-            <div class="btn-group-justified">
+            <div class="btn-group-justified mb-2">
               <% if can? :manage, Team %>
                 <%= link_to 'Created new team', new_event_team_path, class: 'btn btn-primary' %>
                 <%= link_to 'View Application', event_teams_applications_path(event_id: @event.id), class: 'btn btn-info' %>
@@ -33,7 +36,7 @@
             </div>
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead class="thead-dark">
                 <tr>
                   <th>Name of Team</th>
                   <th>Application</th>

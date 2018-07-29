@@ -34,8 +34,8 @@ class ShiftForm extends React.Component {
             button = <button className="btn btn-primary" type="submit">Create Shift</button>
         }
         return(
-         <form method="POST" action={this.postURL} className="form-group col-md-6">
-             <div className="form-group col-md-6">
+         <form method="POST" action={this.postURL}>
+             <div className="form-group">
                  <label>Start Time</label>
                  <DatePicker
                      showTimeSelect
@@ -49,7 +49,7 @@ class ShiftForm extends React.Component {
                      className="form-control"
                  />
              </div>
-             <div className="form-group col-md-6">
+             <div className="form-group">
                  <label>End Time</label>
                  <DatePicker
                      showTimeSelect

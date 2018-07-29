@@ -46,6 +46,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Bootstrap 4.0 for responsive web app
 gem 'bootstrap', '~> 4.1.1'
 
+#Material Sass Gem for Google material theme
+gem 'material-sass', '~> 4.1.1'
+
 #font awesome for icons
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.4'
 gem 'font-awesome-sass', '~> 5.0.13'
