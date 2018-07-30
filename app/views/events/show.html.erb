@@ -17,10 +17,10 @@
         </div>
         <div class="card-body">
           <% if @current_user.is? (:admin) %>
-          <div class="card col-md-8">
+          <div class="card col-md-8 bg-primary">
             <%= image_tag "https://i.imgur.com/XABoTRz.png", class: 'card-img-top img-fluid' %>
             <div class="card-body">
-              <p>Silly goose, Admins should always be present at the event!</p>
+              <p class="text-white">Silly <%= @current_user.first_name %>, Admins should always be present at the event!</p>
             </div>
           </div>
 
@@ -56,7 +56,7 @@
           <% end %>
         </div>
       </div>
-      <div class="col-6 card">
+      <div class="col-6 card mt-2">
         <div class="card-header">
           <h1>Event Stats</h1>
         </div>
