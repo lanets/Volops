@@ -9,10 +9,14 @@ class Ability
     if user.is? :admin
       can :manage, :all
     elsif user.is? :user
-      can :read, :all
-      cannot :read, :admin
+      can :read, User, user_id: user.id
+      cannot :read, Requirement
       can :manage, Availability, user_id: user.id
       can :manage, TeamsApplication, user_id: user.id
+      can :read, Schedule, user_id: user.id
+      can :read, Event
+      can :read, Shift
+      can :read, Team
     else
       can :read, Event
     end

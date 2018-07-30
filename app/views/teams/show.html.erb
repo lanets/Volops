@@ -1,12 +1,26 @@
 <% content_for :top_content do %>
-    <div class="panel panel-default">
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <%= link_to @event.title, event_path(@event) %>
+  </li>
+  <li class="breadcrumb-item">
+    <%= link_to "Teams", event_teams_path(@event) %>
+  </li>
+  <li class="breadcrumb-item active">Show</li>
+</ol>
+<div class="row">
+  <div class="col-12">
+
+  </div>
+</div>
+    <div class="panel panel-default col-12">
       <div class="panel-heading">
         <h2><%= @team.title %></h2>
       </div>
-      <br>
       <div class="panel-body">
         <p><%= @team.description %></p>
-        <%= link_to 'Return to Team', event_teams_path(@event), class: ' col-md-2 btn btn-primary' %>
+
+        <%= link_to 'Return to Team', event_teams_path(@event), class: 'btn btn-outline-danger' %>
       </div>
     </div>
 <% end %>

@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'users#index'
-    resources :users, except: [:show]
+    resources :users, only: [:index]
   end
 
 end

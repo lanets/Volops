@@ -23,8 +23,7 @@ class SchedulesController < ApplicationController
       shift = shifts.detect {|sh| sh[:id] == s[:shift_id]}
       user = users.detect {|u| u[:id] == s[:user_id]}
       event = { id: index + 1, start: shift[:start_time].strftime('%Y-%m-%d %H:%M:%S'), end: shift[:end_time].strftime('%Y-%m-%d %H:%M:%S'),
-               resourceId: s[:team_id],
-               title: "#{user[:first_name]} #{user[:last_name]}" }
+               resourceId: s[:team_id], title: "#{user[:first_name]} #{user[:last_name]}", bgColor: '#1F83D1' }
       unless defined?(user)
         event[:bgColor] = 'red'
       end
@@ -102,7 +101,7 @@ class SchedulesController < ApplicationController
       @schedule.each(&:save)
     end
 
-    redirect_to admin_event_schedules_path(@event)
+    head :ok # this will return HTTP 200 OK to jQuery!
   end
 
   private

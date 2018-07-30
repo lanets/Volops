@@ -11,10 +11,13 @@
     <div class="col-12">
       <div class="panel panel-default">
         <% if @requirements.empty? %>
-          <h1>Requirements of <%= @event.title %> </h1>
+          <h1>Requirements of
+            <%= @event.title %>
+          </h1>
           <hr>
           <div class="jumbotron">
-            <h3>No Requirements found </h3>
+            <h3>No Requirements found
+            </h3>
             <% if can? :create, Requirement %>
               <p>Start creating shift requirements here</p>
               <%= link_to 'Create new requirements', new_event_requirement_path(event_id: @event),class: 'btn btn-primary' %>
@@ -22,12 +25,17 @@
           </div>
 
         <% else %>
-        <div class="panel-heading">
-          <h1>Requirements</h1>
-        </div>
+          <div class="panel-heading">
+            <h1>Requirements</h1>
+          </div>
           <div class="panel-body">
-            <%= link_to 'Create New Requirements', new_event_requirement_path(event_id: @event), class: 'btn btn-primary' %>
-            <%= react_component('SchedulerViewer', {resources: @resources, events: @events, eventDate: @event[:start_date].strftime('%Y-%m-%d %H:%M:%S')}) %>
+            <div class="row mb-2">
+              <%= link_to 'Create New Requirements', new_event_requirement_path(event_id: @event), class: 'btn btn-primary' %>
+
+            </div>
+            <div class="row">
+              <%= react_component('SchedulerViewer', {resources: @resources, events: @events, eventDate: @event[:start_date].strftime('%Y-%m-%d %H:%M:%S')}) %>
+            </div>
           </div>
         <% end %>
       </div>

@@ -25,7 +25,7 @@ class TeamsApplicationsController < ApplicationController
       flash[:notice] = 'Application was successfully created'
       @event.teams_applications << @teams_application
       @current_user.teams_applications << @teams_application
-      redirect_to event_teams_applications_path(@event)
+      redirect_to event_teams_path(@event)
     else
       flash[:notice] = 'Error creating application'
       render 'new'

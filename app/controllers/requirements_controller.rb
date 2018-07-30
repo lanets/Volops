@@ -23,10 +23,10 @@ class RequirementsController < ApplicationController
         }
         if (i + 1) <= r.mandatory
           event[:title] = "mandatory ##{i + 1}"
-          event[:bgColor] = 'rgb(247, 89, 171)'
+          event[:bgColor] = '#d81b60'
         else
           event[:title] = "optional ##{i + 1}"
-          event[:bgColor] = 'rgb(250, 158, 149)'
+          event[:bgColor] = '#283593'
         end
         @events << event
       end

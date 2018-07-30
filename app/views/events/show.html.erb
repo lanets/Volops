@@ -17,7 +17,15 @@
         </div>
         <div class="card-body">
           <% if @current_user.is? (:admin) %>
-          <p>Silly goose, Admins should always be present at the event!</p>
+          <div class="card col-md-8">
+            <%= image_tag "https://i.imgur.com/XABoTRz.png", class: 'card-img-top img-fluid' %>
+            <div class="card-body">
+              <p>Silly goose, Admins should always be present at the event!</p>
+            </div>
+          </div>
+
+
+
           <% elsif @schedules.empty? && @schedule_not_created %>
             <p>Schedule has not been created yet. Wait or contact the person in charge</p>
           <% elsif @schedules.empty? && !@schedule_created %>
@@ -76,4 +84,3 @@
 
 
 <% end %>
-

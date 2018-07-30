@@ -4,7 +4,11 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:warning] = exception.message
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
+  end
+
+  def herd_user
+    redirect_back(fallback_location: root_path) unless :authenticate_user! && current_user.is?(:admin)
   end
 
   protected
