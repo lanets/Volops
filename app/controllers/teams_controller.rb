@@ -16,11 +16,11 @@ class TeamsController < ApplicationController
     @event = Event.find(params[:event_id])
     @team = Team.new(team_params)
     if @team.save
-      flash[:notice] = 'Team was successfully created'
+      flash[:success] = 'Team was successfully created'
       @event.teams << @team
       redirect_to event_teams_path(@event)
     else
-      flash[:notice] = 'Error creating Team'
+      flash[:danger] = 'Error creating Team'
       render 'new'
     end
   end
@@ -39,10 +39,10 @@ class TeamsController < ApplicationController
     @event = Event.find(params[:event_id])
     @team = Team.find(params[:id])
     if @team.update(team_params)
-      flash[:notice] = 'Team was successfully updated'
+      flash[:success] = 'Team was successfully updated'
       redirect_to event_teams_path(@event)
     else
-      flash[:notice] = 'Error updating Team'
+      flash[:danger] = 'Error updating Team'
       render 'edit'
     end
   end

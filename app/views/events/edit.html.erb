@@ -1,4 +1,5 @@
-<div class="container">
+<% content_for :top_content do %>
+<div class="row">
   <h1>Edit <%= @event.title %></h1>
 
   <%= render 'shared/errors', object: @event %>
@@ -7,15 +8,15 @@
   <%= form_for @event do |f| %>
     <div class="form-group col-md-6">
       <%= f.label :title %>
-      <%= f.text_field :title, class: 'form-control' %>
+      <%= f.text_field :title, class: 'form-control', required: true %>
     </div>
     <div class="form-group col-md-6">
       <%= f.label :start_date %>
-      <%= f.date_field :start_date, class: 'form-control' %>
+      <%= f.date_field :start_date, class: 'form-control', required: true %>
     </div>
     <div class="form-group col-md-6">
       <%= f.label :end_date%>
-      <%= f.date_field :end_date, class: 'form-control'%>
+      <%= f.date_field :end_date, class: 'form-control', required: true%>
     </div>
     <div class="col-md-6">
       <%= f.submit "Update", class: 'btn btn-primary' %>
@@ -24,3 +25,4 @@
   <% end %>
 
 </div>
+<% end %>

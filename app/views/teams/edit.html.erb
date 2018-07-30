@@ -9,18 +9,17 @@
     <li class="breadcrumb-item active">Edit</li>
   </ol>
 
-  <div class="container">
-    <div class="card card-register mx-auto mt-5">
-      <div class="card-header">
+  <div class="panel panel-default col-12">
+      <div class="panel-heading">
         <h2 >Edit <%= @team.title %></h2>
       </div>
-      <div class="card-body">
+      <div class="panel-body col-6">
         <%= render 'shared/errors', object: @team %>
 
         <%= form_for [@event, @team] do |t| %>
           <div class="form-group">
             <%= t.label :title %>
-            <%= t.text_field :title, class: 'form-control' %>
+            <%= t.text_field :title, class: 'form-control', required: true %>
           </div>
           <div class="form-group">
             <%= t.label :description %>
@@ -33,7 +32,6 @@
 
         <% end %>
       </div>
-    </div>
 
   </div>
 <% end %>

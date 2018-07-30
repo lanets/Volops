@@ -22,12 +22,12 @@ class TeamsApplicationsController < ApplicationController
     @event = Event.find(params[:event_id])
     @teams_application = TeamsApplication.new(teams_application_params)
     if @teams_application.save
-      flash[:notice] = 'Application was successfully created'
+      flash[:success] = 'Application was successfully created'
       @event.teams_applications << @teams_application
       @current_user.teams_applications << @teams_application
       redirect_to event_teams_path(@event)
     else
-      flash[:notice] = 'Error creating application'
+      flash[:danger] = 'Error creating application'
       render 'new'
     end
   end

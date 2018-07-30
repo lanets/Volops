@@ -23,11 +23,11 @@
         <%= form_with model: [@event, @teams_application] do |t| %>
           <div class="form-group">
             <%= t.label :team %>
-            <%= collection_select(:teams_application, :team_id, Team.where(event_id: @event.id), :id, :title, {:prompt=> true},  {class: 'form-control'}) %>
+            <%= collection_select(:teams_application, :team_id, Team.where(event_id: @event.id), :id, :title, {prompt: true, required: true},  {class: 'form-control'}) %>
           </div>
           <div class="form-group">
             <%= t.label :priority %>
-            <%= t.select(:priority, [1, 2, 3], {:prompt=> true}, {class: 'form-control'})  %>
+            <%= t.select(:priority, [1, 2, 3], {prompt: true, required: true}, {class: 'form-control'})  %>
           </div>
           <div class="btn-group-justified">
             <%= t.submit "Apply", class: 'btn btn-primary' %>

@@ -35,7 +35,7 @@ class radarChart extends Component {
           label: '# of application for priority 3',
           data: dataPriorityThree,
           pointBackgroundColor: '#1FC3B4',
-          backgroundColor: 'rgb(117, 238, 222, 0.75)',
+          backgroundColor: 'rgb(117, 238, 222)',
           borderColor: '#CAFFF4'
         }
       ]

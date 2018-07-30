@@ -47,10 +47,10 @@ class SchedulesController < ApplicationController
     @event = Event.find(params[:event_id])
     @schedule = Schedule.find(params[:id])
     if @schedule.update(schedule_params)
-      flash[:notice] = 'Schedule was successfully updated'
+      flash[:success] = 'Schedule was successfully updated'
       redirect_to event_schedules_path(@event)
     else
-      flash[:notice] = 'Error updating schedule'
+      flash[:danger] = 'Error updating schedule'
       render 'edit'
     end
   end

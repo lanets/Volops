@@ -24,11 +24,11 @@
       <%= form_for [@event, @requirement] do |r| %>
        <div class="form-group col-md-6">
           <%= r.label :shift  %>
-          <%= collection_select(:requirement, :shift_id, Shift.where(event_id: @event.id), :id, :shift_name, {:prompt=> true},  {class: 'form-control'}) %>
+          <%= collection_select(:requirement, :shift_id, Shift.where(event_id: @event.id), :id, :shift_name, {prompt: true, required: true},  {class: 'form-control'}) %>
         </div>
         <div class="form-group col-md-6">
           <%= r.label :team  %>
-          <%= collection_select(:requirement, :team_id,  Team.where(event_id: @event.id), :id, :title, {:prompt=> true}, {class: 'form-control'} ) %>
+          <%= collection_select(:requirement, :team_id,  Team.where(event_id: @event.id), :id, :title, {prompt: true, required: true}, {class: 'form-control'}) %>
         </div>
         <div class="form-group col-md-6">
           <%= r.label :mandatory  %>

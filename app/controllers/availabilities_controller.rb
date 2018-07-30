@@ -29,18 +29,24 @@ class AvailabilitiesController < ApplicationController
 
   def new
     @event = Event.find(params[:event_id])
+    unless Shift.where(event_id: @event.id).any?
+      flash[:danger] = 'No shift exists to create availability'
+      redirect_back fallback_location: event_shifts_path(@event)
+    end
+    
     @availability = Availability.new
+
   end
 
   def create
     @event = Event.find(params[:event_id])
     @availability = Availability.new(availability_params)
     if @availability.save
-      flash[:notice] = 'Availability was successfully saved'
+      flash[:success] = 'Availability was successfully saved'
       @current_user.availabilities << @availability
       redirect_to event_shifts_path(@event)
     else
-      flash[:notice] = 'Error creating availability'
+      flash[:danger] = 'Error creating availability'
       render 'new'
     end
   end

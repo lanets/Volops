@@ -18,11 +18,11 @@ class ShiftsController < ApplicationController
     DateTime.strptime(@shift.start_time.to_s, '%Y-%m-%d %H:%M')
     DateTime.strptime(@shift.end_time.to_s, '%Y-%m-%d %H:%M')
     if @shift.save
-      flash[:notice] = 'Shift was successfully created'
+      flash[:success] = 'Shift was successfully created'
       @event.shifts << @shift
       redirect_to event_shifts_path(@event)
     else
-      flash[:notice] = 'Error creating Event'
+      flash[:danger] = 'Error creating Shift'
       render 'new'
     end
   end
@@ -36,10 +36,10 @@ class ShiftsController < ApplicationController
     @event = Event.find(params[:event_id])
     @shift = Shift.find(params[:id])
     if @shift.update(shift_params)
-      flash[:notice] = 'Team was successfully updated'
+      flash[:success] = 'Shift was successfully updated'
       redirect_to event_shifts_path(@event)
     else
-      flash[:notice] = 'Error updating Shift'
+      flash[:danger] = 'Error updating Shift'
       render 'edit'
     end
   end

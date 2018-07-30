@@ -38,17 +38,25 @@ class RequirementsController < ApplicationController
   def new
     @event = Event.find(params[:event_id])
     @requirement = Requirement.new
+    unless Shift.where(event_id: @event.id).any?
+      flash[:danger] = 'No Shifts exist to create requirement'
+      redirect_back fallback_location: event_requirements_path(@event)
+    end
+    unless Team.where(event_id: @event.id).any?
+      flash[:danger] = 'No Teams exist to create requirement'
+      redirect_back fallback_location: event_requirements_path(@event)
+    end
   end
 
   def create
     @event = Event.find(params[:event_id])
     @requirement = Requirement.new(requirement_params)
     if @requirement.save
-      flash[:notice] = 'Requirement was successfully created'
+      flash[:success] = 'Requirement was successfully created'
       @event.requirements << @requirement
       redirect_to event_requirements_path(@event)
     else
-      flash[:notice] = 'Error creating Event'
+      flash[:danger] = 'Error creating Requirement'
       render 'new'
     end
   end

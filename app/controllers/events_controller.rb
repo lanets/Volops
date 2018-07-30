@@ -14,10 +14,10 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
-      flash[:notice] = 'Event was successfully created'
+      flash[:success] = 'Event was successfully created'
       redirect_to events_path
     else
-      flash[:notice] = 'Error creating Event'
+      flash[:danger] = 'Error creating Event'
       render 'new'
     end
   end
@@ -41,10 +41,10 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
-      flash[:notice] = 'Event was successfully updated'
+      flash[:success] = 'Event was successfully updated'
       redirect_to event_path(@event)
     else
-      flash[:notice] = 'Error updating Event'
+      flash[:danger] = 'Error updating Event'
       render 'edit'
     end
   end
