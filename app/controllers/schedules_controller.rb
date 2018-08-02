@@ -1,4 +1,5 @@
 class SchedulesController < ApplicationController
+  respond_to :html, :js
   before_action :authenticate_user!
   load_and_authorize_resource
 
@@ -101,7 +102,10 @@ class SchedulesController < ApplicationController
       @schedule.each(&:save)
     end
 
-    head :ok # this will return HTTP 200 OK to jQuery!
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   private

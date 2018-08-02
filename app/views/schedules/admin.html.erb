@@ -16,6 +16,7 @@
             <%= link_to 'Do it', generate_event_schedules_path(event_id: @event),id: 'generate-schedule', class: 'btn btn-primary', remote: true %>
           </div>
         </div>
+        <div id="generate-schedule" style="display:none;"></div>
 
       <% else %>
         <div class="card mb-3">
