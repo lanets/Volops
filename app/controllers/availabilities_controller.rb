@@ -3,7 +3,7 @@ class AvailabilitiesController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
-    shifts = Shift.where(event_id: @event.id)
+    shifts = @event.shifts
     if @current_user.is? :admin
       @availabilities = Availability.joins(:shift).where(shifts: {event_id: @event.id} ).order(:user_id)
     else
@@ -33,7 +33,7 @@ class AvailabilitiesController < ApplicationController
       flash[:danger] = 'No shift exists to create availability'
       redirect_back fallback_location: event_shifts_path(@event)
     end
-    
+
     @availability = Availability.new
 
   end

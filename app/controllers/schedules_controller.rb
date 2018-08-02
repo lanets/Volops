@@ -5,7 +5,7 @@ class SchedulesController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
-    schedules = Schedule.where(event_id: @event.id)
+    schedules = @event.schedules
     if @current_user.is? :user
       schedules = schedules.select {|s| s[:user_id] == @current_user.id}
     end
@@ -59,10 +59,10 @@ class SchedulesController < ApplicationController
 
   def generate
     @event = Event.find(params[:event_id])
-    @shifts = Shift.where(event_id: @event.id).order(:start_time)
-    @requirements = Requirement.where(event_id: @event.id)
+    @shifts = @event.shifts.order(:start_time)
+    @requirements = @event.requirements
     @availabilities = Availability.joins(:shift).where(shifts: {event_id: @event.id})
-    @applications = TeamsApplication.where(event_id: @event.id)
+    @applications = @event.teams_applications
 
     #Create Schedule array containing all shifts according to their requirements
     @schedule = create_schedule(@shifts, @requirements, @event[:id])
@@ -102,10 +102,7 @@ class SchedulesController < ApplicationController
       @schedule.each(&:save)
     end
 
-    respond_to do |format|
-      format.html
-      format.json
-    end
+    redirect_to event_schedules_path(@event)
   end
 
   private

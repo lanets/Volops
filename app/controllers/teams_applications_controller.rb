@@ -5,9 +5,9 @@ class TeamsApplicationsController < ApplicationController
   def index
     @event = Event.find(params[:event_id])
     @users = User.all
-    @teams = Team.where(event_id: @event.id)
+    @teams = @event.teams
     if @current_user.is? :admin
-      @teams_applications = TeamsApplication.where(event_id: @event.id)
+      @teams_applications = @event.teams_applications.order(:user_id)
     else
       @teams_applications = TeamsApplication.where({event_id: @event.id, user_id: @current_user.id})
     end

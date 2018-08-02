@@ -5,8 +5,8 @@ class StatisticsController < ApplicationController
   def index
     @event = Event.find(params[:event_id])
     # @availabilities = Availability.joins(:shift).where(shifts: {event_id: @event.id}).order(:user_id)
-    @applications = TeamsApplication.where(event_id: @event.id)
-    @teams = Team.where(event_id: @event.id)
+    @applications = @event.teams_applications
+    @teams = @event.teams
 
     authorize! :show, @event
     authorize! :show, @teams

@@ -3,7 +3,7 @@ class ShiftsController < ApplicationController
 
   def index
     @event = Event.find(params[:event_id])
-    @shifts = Shift.where(event_id: @event.id)
+    @shifts = @event.shifts
     @availabilities = Availability.joins(:shift).where(availabilities: {user_id: @current_user.id}, shifts: {event_id: @event.id})
   end
 
