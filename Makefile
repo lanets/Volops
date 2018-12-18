@@ -7,7 +7,7 @@ export COMPOSE_PROJECT_NAME = volops
 endif
 
 build:
-	docker-compose -f docker-compose.yml build
+	docker-compose -f docker-compose.yml build --no-cache
 	docker-compose run web rails db:create
 	docker-compose run web rails db:migrate
 
@@ -34,11 +34,11 @@ docker-rm-all:
 clean:
 	docker system prune -f
 	docker-compose -f docker-compose.yml rm -sf
-	docker-compose -f docker-compose.yml build
+	docker-compose -f docker-compose.yml build --no-cache
 
 clean-db:
 	 @echo 'Removing database data volume'
 	 docker volume prune -f
 	 docker-compose -f docker-compose.yml rm -sf
-	 docker-compose -f docker-compose.yml build
+	 docker-compose -f docker-compose.yml build --no-cache
 
