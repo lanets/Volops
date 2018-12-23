@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class ShiftsController < ApplicationController
   load_and_authorize_resource
 
   def index
     @event = Event.find(params[:event_id])
     @shifts = @event.shifts
-    @availabilities = Availability.joins(:shift).where(availabilities: {user_id: @current_user.id}, shifts: {event_id: @event.id})
+    @availabilities = Availability.joins(:shift).where(availabilities: { user_id: @current_user.id }, shifts: { event_id: @event.id })
   end
 
   def new
@@ -49,5 +51,4 @@ class ShiftsController < ApplicationController
   def shift_params
     params.require(:shift).permit(:start_time, :end_time)
   end
-
 end

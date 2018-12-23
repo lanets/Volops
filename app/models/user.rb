@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -11,14 +13,13 @@ class User < ApplicationRecord
   has_many :shifts
   has_many :availabilities
 
-  ROLES = [:user, :admin]
+  ROLES = %i[user admin].freeze
 
   def is?(requested_role)
-    self.role == requested_role.to_s
+    role == requested_role.to_s
   end
 
   def full_name
     "#{first_name} #{last_name}"
   end
-
 end

@@ -1,0 +1,11 @@
+fr:
+  hello: "Bonjour Monde"
+  pages:
+    index:
+      register: "Enregistrer pour commencer!"
+      welcome: "Bienvenue à Volops!"
+      management: "Système de gestion de bénévoles"
+  header:
+    edit_account: "Gérer compte"
+    log_in: "connexion"
+    log_out_html: '<i class="fa fa-fw fa-sign-out"></i>déconnexion'

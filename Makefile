@@ -9,7 +9,7 @@ endif
 build:
 	docker-compose -f docker-compose.yml build --no-cache
 	docker-compose run web rails db:create
-	docker-compose run web rails db:migrate
+	docker-compose run web rails db:schema:load
 
 run-dev:
 	rm -f tmp/pids/server.pid > /dev/null 2>&1
@@ -35,10 +35,16 @@ clean:
 	docker system prune -f
 	docker-compose -f docker-compose.yml rm -sf
 	docker-compose -f docker-compose.yml build --no-cache
+	docker-compose run web bundle install
+	docker-compose run web yarn install
+
 
 clean-db:
 	 @echo 'Removing database data volume'
 	 docker volume prune -f
 	 docker-compose -f docker-compose.yml rm -sf
 	 docker-compose -f docker-compose.yml build --no-cache
+	 docker-compose run web rails db:schema:load
+	 docker-compose run web bundle install
+	 docker-compose run web yarn install
 

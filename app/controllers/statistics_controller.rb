@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class StatisticsController < ApplicationController
   before_action :authenticate_user!
-  skip_authorize_resource :only => :index
+  skip_authorize_resource only: :index
 
   def index
     @event = Event.find(params[:event_id])
@@ -11,7 +13,5 @@ class StatisticsController < ApplicationController
     authorize! :show, @event
     authorize! :show, @teams
     authorize! :show, @applications
-
   end
-
 end

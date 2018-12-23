@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RequirementsController < ApplicationController
   load_and_authorize_resource
 
@@ -11,16 +13,15 @@ class RequirementsController < ApplicationController
     @resources = []
 
     teams.each do |t|
-      resource = {id: t[:id], name: t[:title]}
+      resource = { id: t[:id], name: t[:title] }
       @resources << resource
     end
 
     requirements.each_with_index do |r, index|
-      shift = shifts.detect {|sh| sh[:id] == r[:shift_id]}
+      shift = shifts.detect { |sh| sh[:id] == r[:shift_id] }
       (r.mandatory + r.optional).times do |i|
-        event = {id: "#{index + 1}#{i + 1}", start: shift[:start_time].strftime('%Y-%m-%d %H:%M:%S'), end: shift[:end_time].strftime('%Y-%m-%d %H:%M:%S'),
-                 resourceId: r[:team_id]
-        }
+        event = { id: "#{index + 1}#{i + 1}", start: shift[:start_time].strftime('%Y-%m-%d %H:%M:%S'), end: shift[:end_time].strftime('%Y-%m-%d %H:%M:%S'),
+                  resourceId: r[:team_id] }
         if (i + 1) <= r.mandatory
           event[:title] = "mandatory ##{i + 1}"
           event[:bgColor] = '#d81b60'
@@ -31,8 +32,7 @@ class RequirementsController < ApplicationController
         @events << event
       end
     end
-    @events.sort_by! { |x| Date.parse x[:start]}
-
+    @events.sort_by! { |x| Date.parse x[:start] }
   end
 
   def new

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class TeamsController < ApplicationController
   load_and_authorize_resource
 
   def index
     @event = Event.find(params[:event_id])
     @teams = Team.where(event_id: @event.id)
-    @applications = TeamsApplication.where({event_id: @event.id, user_id: @current_user.id})
+    @applications = TeamsApplication.where(event_id: @event.id, user_id: @current_user.id)
   end
 
   def new
@@ -52,5 +54,4 @@ class TeamsController < ApplicationController
   def team_params
     params.require(:team).permit(:title, :description)
   end
-
 end

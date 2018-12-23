@@ -1,0 +1,5 @@
+<% if I18n.locale == :en %>
+<li class="nav-item"><%= link_to 'Français', root_path(locale: :fr), class: 'nav-link' %></li>
+<% else %>
+<li class="nav-item"><%= link_to 'English', root_path(locale: :en), class: 'nav-link' %></li>
+<% end %>

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class Ability
   include CanCan::Ability
 
   def initialize(user)
-
     user ||= User.new # guest user (not logged in)
     can :read, :all
 
@@ -20,6 +21,5 @@ class Ability
     else
       can :read, Event
     end
-
   end
 end

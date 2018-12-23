@@ -31,3 +31,12 @@
 
 en:
   hello: "Hello world"
+  pages:
+    index:
+      register: "Register to get started!"
+      welcome: "Welcome to Volops"
+      management: "Management system for volunteer operations"
+  header:
+    edit_account: "Edit account"
+    log_in: "log in"
+    log_out_html: '<i class="fa fa-fw fa-sign-out"></i>Log out'

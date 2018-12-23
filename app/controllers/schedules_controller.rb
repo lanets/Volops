@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SchedulesController < ApplicationController
   respond_to :html, :js
   before_action :authenticate_user!
@@ -7,7 +9,7 @@ class SchedulesController < ApplicationController
     @event = Event.find(params[:event_id])
     schedules = @event.schedules
     if @current_user.is? :user
-      schedules = schedules.select {|s| s[:user_id] == @current_user.id}
+      schedules = schedules.select { |s| s[:user_id] == @current_user.id }
     end
     teams = Team.where(event_id: @event.id)
     shifts = Shift.where(event_id: @event.id)
@@ -16,22 +18,19 @@ class SchedulesController < ApplicationController
     @events = []
 
     teams.each do |t|
-      resource = {id: t[:id], name: t[:title]}
+      resource = { id: t[:id], name: t[:title] }
       @resources << resource
     end
 
     schedules.each_with_index do |s, index|
-      shift = shifts.detect {|sh| sh[:id] == s[:shift_id]}
-      user = users.detect {|u| u[:id] == s[:user_id]}
+      shift = shifts.detect { |sh| sh[:id] == s[:shift_id] }
+      user = users.detect { |u| u[:id] == s[:user_id] }
       event = { id: index + 1, start: shift[:start_time].strftime('%Y-%m-%d %H:%M:%S'), end: shift[:end_time].strftime('%Y-%m-%d %H:%M:%S'),
-               resourceId: s[:team_id], title: "#{user[:first_name]} #{user[:last_name]}", bgColor: '#1F83D1' }
-      unless defined?(user)
-        event[:bgColor] = 'red'
-      end
+                resourceId: s[:team_id], title: "#{user[:first_name]} #{user[:last_name]}", bgColor: '#1F83D1' }
+      event[:bgColor] = 'red' unless defined?(user)
       @events << event
     end
-    @events.sort_by! {|x| Date.parse x[:start]}
-
+    @events.sort_by! { |x| Date.parse x[:start] }
   end
 
   def admin
@@ -56,29 +55,28 @@ class SchedulesController < ApplicationController
     end
   end
 
-
   def generate
     @event = Event.find(params[:event_id])
     @shifts = @event.shifts.order(:start_time)
     @requirements = @event.requirements
-    @availabilities = Availability.joins(:shift).where(shifts: {event_id: @event.id})
+    @availabilities = Availability.joins(:shift).where(shifts: { event_id: @event.id })
     @applications = @event.teams_applications
 
-    #Create Schedule array containing all shifts according to their requirements
+    # Create Schedule array containing all shifts according to their requirements
     @schedule = create_schedule(@shifts, @requirements, @event[:id])
 
     # creates priority table container the number of required users in a shift and the number of available people
     # then sorts by least requirement and least availability
-    priority_table = create_priority(@requirements, @shifts, @availabilities).sort_by {|p| [p[:requirements], p[:availabilities]]}
+    priority_table = create_priority(@requirements, @shifts, @availabilities).sort_by { |p| [p[:requirements], p[:availabilities]] }
 
     # iterate through item in priority table
     priority_table.each_with_index do |p, index|
       # skip if there is no requirement or no availability
       if p[:requirements] != 0 || p[:availabilities] != 0
         # retrieve all schedules at the current shift based on the order of priority table
-        priority_schedule = @schedule.select {|s| s[:shift_id] == p[:shift]}
+        priority_schedule = @schedule.select { |s| s[:shift_id] == p[:shift] }
         # retrieve all availabilities at current shift
-        availabilities = @availabilities.select {|a| a[:shift_id] == p[:shift]}
+        availabilities = @availabilities.select { |a| a[:shift_id] == p[:shift] }
         # if availabilities and requirements equals 1, add user to schedule
         if p[:availabilities] == 1 && p[:requirements] == 1
           @schedule[@schedule.index(priority_schedule[0])][:user_id] = availabilities[0][:user_id]
@@ -98,9 +96,7 @@ class SchedulesController < ApplicationController
       puts "done: #{index + 1} / #{priority_table.length}"
     end
 
-    if Schedule.where(event_id: @event.id).blank?
-      @schedule.each(&:save)
-    end
+    @schedule.each(&:save) if Schedule.where(event_id: @event.id).blank?
 
     redirect_to event_schedules_path(@event)
   end
@@ -111,34 +107,31 @@ class SchedulesController < ApplicationController
   # every schedule at a given shift, add the user if the current schedule's team corresponds to the level of priority
   # that the user assigned
   def match(availabilities, priority_schedule, all_applications, all_shifts, all_schedules, priority)
-    begin
-      availabilities.each do |availability|
-        unless user_tired(availability[:shift_id], availability[:user_id], all_shifts, all_schedules)
+    availabilities.each do |availability|
+      next if user_tired(availability[:shift_id], availability[:user_id], all_shifts, all_schedules)
 
-          # find all user team applications at an availability
-          team_application = all_applications.select {|app| app[:user_id] == availability[:user_id] && app[:team] == priority_schedule[:team]}
-          team_application.each do |application|
-            if priority == application[:priority] && all_schedules.detect {|s| s == priority_schedule}[:user_id].blank?
-              all_schedules.detect {|s| s == priority_schedule}[:user_id] = availability[:user_id]
-              return true
-            end
-          end
+      # find all user team applications at an availability
+      team_application = all_applications.select { |app| app[:user_id] == availability[:user_id] && app[:team] == priority_schedule[:team] }
+      team_application.each do |application|
+        if priority == application[:priority] && all_schedules.detect { |s| s == priority_schedule }[:user_id].blank?
+          all_schedules.detect { |s| s == priority_schedule }[:user_id] = availability[:user_id]
+          return true
         end
       end
-      return false
-    rescue StandardError => e
-      puts e
     end
+    false
+  rescue StandardError => e
+    puts e
   end
 
   # verifies if user has a shift before or after
   def user_tired(shift_id, user_id, shifts, schedules)
-    shift_index = shifts.index {|s| s[:id] == shift_id}
-    current_schedules = schedules.select {|s| s[:shift_id] == shifts[shift_index][:id]}
-    schedules_before = schedules.select {|s| s[:shift_id] == shifts[shift_index - 1][:id]}
-    schedules_after = schedules.select {|s| s[:shift_id] == shifts[shift_index + 1][:id]}
+    shift_index = shifts.index { |s| s[:id] == shift_id }
+    current_schedules = schedules.select { |s| s[:shift_id] == shifts[shift_index][:id] }
+    schedules_before = schedules.select { |s| s[:shift_id] == shifts[shift_index - 1][:id] }
+    schedules_after = schedules.select { |s| s[:shift_id] == shifts[shift_index + 1][:id] }
     # return true if a shift is found in the period before, current or next
-    if current_schedules.any? {|s| s[:user_id] == user_id} || schedules_before.any? {|s| s[:user_id] == user_id} || schedules_after.any? {|s| s[:user_id] == user_id}
+    if current_schedules.any? { |s| s[:user_id] == user_id } || schedules_before.any? { |s| s[:user_id] == user_id } || schedules_after.any? { |s| s[:user_id] == user_id }
       return true
     else
       return false
@@ -148,23 +141,23 @@ class SchedulesController < ApplicationController
   def create_priority(requirements, shifts, availabilities)
     priority_table = []
     shifts.each do |s|
-      requirement_shifts = requirements.select {|r| r[:shift_id] == s.id}
+      requirement_shifts = requirements.select { |r| r[:shift_id] == s.id }
       total_requirements = 0
       requirement_shifts.each do |r|
         total_requirements += r.mandatory + r.optional
       end
-      availabilities_shift = availabilities.select {|a| a[:shift_id] == s.id}
+      availabilities_shift = availabilities.select { |a| a[:shift_id] == s.id }
       total_availabilities = availabilities_shift.count
-      priority_table << {shift: s.id, requirements: total_requirements, availabilities: total_availabilities}
+      priority_table << { shift: s.id, requirements: total_requirements, availabilities: total_availabilities }
     end
 
-    return priority_table
+    priority_table
   end
 
   def create_schedule(shifts, all_requirements, current_event_id)
     schedule = []
     shifts.each do |s|
-      requirements = all_requirements.select {|r| r[:shift_id] == s[:id]}
+      requirements = all_requirements.select { |r| r[:shift_id] == s[:id] }
       requirements.each do |r|
         (r.mandatory + r.optional).times do |i|
           schedule << Schedule.new(event_id: current_event_id,
@@ -175,12 +168,10 @@ class SchedulesController < ApplicationController
         end
       end
     end
-    return schedule
+    schedule
   end
 
   def schedule_params
     params.require(:schedule).permit(:user_id, :comment)
   end
-
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Event controllers
 class EventsController < ApplicationController
   load_and_authorize_resource
@@ -29,8 +31,8 @@ class EventsController < ApplicationController
     shifts = Shift.where(id: @schedules.map(&:shift_id))
     @total_hours = 0
     @schedules.each do |s|
-      shift = shifts.detect { |sh| sh[:id] == s[:shift_id]}
-      @total_hours += ((shift[:end_time] - shift[:start_time])/3600).to_i
+      shift = shifts.detect { |sh| sh[:id] == s[:shift_id] }
+      @total_hours += ((shift[:end_time] - shift[:start_time]) / 3600).to_i
     end
   end
 
@@ -54,5 +56,4 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:title, :start_date, :end_date)
   end
-
 end

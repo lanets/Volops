@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TeamsApplicationsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
@@ -9,7 +11,7 @@ class TeamsApplicationsController < ApplicationController
     if @current_user.is? :admin
       @teams_applications = @event.teams_applications.order(:user_id)
     else
-      @teams_applications = TeamsApplication.where({event_id: @event.id, user_id: @current_user.id})
+      @teams_applications = TeamsApplication.where(event_id: @event.id, user_id: @current_user.id)
     end
   end
 
