@@ -31,6 +31,9 @@ docker-kill-all:
 docker-rm-all:
 	docker-compose -f docker/docker-compose.yml rm -v -f
 
+rspec:
+	docker-compose run web rspec
+
 clean:
 	docker system prune -f
 	docker-compose -f docker-compose.yml rm -sf

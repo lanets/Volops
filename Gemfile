@@ -38,6 +38,9 @@ gem 'jbuilder', '~> 2.5'
 # rubocop for automatic code styling
 gem 'rubocop', '~> 0.57.0'
 
+#rspec for testing
+gem 'rspec', '~> 3.5'
+
 # react-rails gem for rendering components in react
 gem 'babel-source', '~> 5.8', '>= 5.8.35'
 gem 'react-rails', '~> 2.4', '>= 2.4.4'
@@ -85,6 +88,8 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # gem to create fake users
   gem 'faker', '~> 1.9.1'
+  # rspec for testing
+  gem 'rspec-rails', '~> 3.8.1'
 end
 
 group :development do
@@ -94,6 +99,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'annotate', '~> 2.7', '>= 2.7.1'
 end
 
 group :test do
